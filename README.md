@@ -1,9 +1,9 @@
 # Statistics_Animation_Plot
 
 
-**Must install packages from `Required packages.R`**
+**Must install packages from `Required_packages.R`**
 
-**Must run `saveGIF_simple.R` to generated plot**
+**Must run `saveGIF_simple.R` to generate plot**
 
 
 
