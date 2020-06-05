@@ -1,9 +1,10 @@
 #Must changed to the local clone repository path
-local_path = '/Users/Jasonmoy/Desktop/Hattrup Lab/Statistics_Animation_Plot' #edit here
+clone_repository_path = '/Users/Jasonmoy/Desktop/Hattrup Lab/Statistics_Animation_Plot' #edit here
+source(paste(clone_repository_path,'/saveGIF_simple_git_ver.R',sep = '')) # run the saveGIF_simple function 
 
-source(paste(local_path,'/saveGIF_simple_git_ver.R',sep = '')) # run the saveGIF_simple function 
-
+# Graph created here 
 x = seq(-5,5,0.15)
+
 saveGIF_simple(
   loop_object = 
     for (sd in seq(1,3.5,.05)) {
@@ -21,11 +22,8 @@ saveGIF_simple(
         lims(y = c(0,0.5)) + 
     annotate(geom = 'text',x = -4, y = 0.4, label = text1_converted) + 
     annotate(geom = 'text',x = -4, y = 0.3, label = text2_converted)
-  print(plot(plot_))}
-  , movie_name = 'Plot2.gif',
-  
-  #Must change the path to your local path to your cloned repository 
-  stored_path = paste(local_path,'generated_graph'))
+  print(plot(plot_))}, 
+  movie_name = 'Plot.gif', clone_repository_path = clone_repository_path)
 
 
   
