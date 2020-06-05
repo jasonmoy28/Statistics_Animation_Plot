@@ -1,4 +1,4 @@
-source('~/Desktop/Hattrup Lab/Statistics_Animation_Plot/saveGIF_simple.R')
+# source('/Users/Jasonmoy/Desktop/Hattrup Lab/saveGIF_simple.R') # ignore this line 
 
 x = seq(-5,5,0.15)
 saveGIF_simple(
