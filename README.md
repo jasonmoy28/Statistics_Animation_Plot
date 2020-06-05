@@ -1,4 +1,10 @@
 # Statistics_Animation_Plot
+Must install packages from `Required packages.R`
+
+Must run `saveGIF_simple.R` to generated plot 
+
+
+
 IDEAS FOR ANIMATING BASIC STATISTICS:
 
 1. Show how the mean and median pull away from the mode when a distribution becomes skewed (positively and negatively)
