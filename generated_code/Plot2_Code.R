@@ -1,3 +1,5 @@
+source('~/Desktop/Hattrup Lab/Statistics_Animation_Plot/saveGIF_simple.R') #call the function saveGIF_simple
+
 x = seq(0,20,length = 1000)
 saveGIF({for (df in seq(3,15,.5)) {
   # Edit generation of data here 
