@@ -1,4 +1,4 @@
-# Statistics_Animation_Plot
+# Statistics_Animation_Plot Instruction
 
 
 **Must install packages from `Required_packages.R`**  
