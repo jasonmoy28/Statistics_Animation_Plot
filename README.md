@@ -1,10 +1,14 @@
 # Statistics_Animation_Plot
 
 
-**Must install packages from `Required_packages.R`**
+**Must install packages from `Required_packages.R`**  
 
-**Must run `saveGIF_simple.R` to generate plot**
+**Must run `saveGIF_simple.R` to generate plot** 
 
+Direction to access this repository: 
+1. Code to generate the graphs are stored in folder `generated_code`
+2. Graph that are generated are stored in folder `generated_graph`
+3. For more functionality that supported in `animation::saveGIF`, edit the `saveGIF_simple` function
 
 
 IDEAS FOR ANIMATING BASIC STATISTICS:
