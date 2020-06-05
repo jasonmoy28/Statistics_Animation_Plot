@@ -1,4 +1,4 @@
-# source('/Users/Jasonmoy/Desktop/Hattrup Lab/saveGIF_simple.R') # ignore this line 
+# source('/Users/Jasonmoy/Desktop/Hattrup Lab/saveGIF_simple_local_ver.R') # ignore this line 
 
 x = seq(-5,5,0.15)
 saveGIF_simple(
