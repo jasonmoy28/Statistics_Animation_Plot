@@ -1,8 +1,4 @@
 # Statistics_Animation_Plot
-Contain animated statistics plot for intro statistics class
-
-
-
 IDEAS FOR ANIMATING BASIC STATISTICS:
 
 1. Show how the mean and median pull away from the mode when a distribution becomes skewed (positively and negatively)
