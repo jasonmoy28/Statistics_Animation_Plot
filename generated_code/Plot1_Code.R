@@ -15,5 +15,3 @@ saveGIF_simple({for (df in seq(3,15,.5)) {
 }},... = ani.options(interval = .1))
 
 
-123
-
