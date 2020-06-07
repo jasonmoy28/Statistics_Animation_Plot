@@ -1,4 +1,6 @@
-source('saveGIF_simple.R') #call the function saveGIF_simple
+#Must changed to the local clone repository path
+clone_repository_path = '/Users/Jasonmoy/Desktop/Hattrup Lab/Statistics_Animation_Plot' #edit here
+source(paste(clone_repository_path,'/saveGIF_simple_git_ver.R',sep = '')) # run the saveGIF_simple function 
 
 x = seq(0,20,length = 1000)
 saveGIF_simple({for (df in seq(3,15,.5)) {
