@@ -23,7 +23,9 @@ saveGIF_simple(
     annotate(geom = 'text',x = -4, y = 0.4, label = text1_converted) + 
     annotate(geom = 'text',x = -4, y = 0.3, label = text2_converted)
   print(plot(plot_))}, 
-  movie_name = 'Plot.gif', clone_repository_path = clone_repository_path)
+  movie_name = 'Plot2.gif', 
+  clone_repository_path = clone_repository_path,
+  loop_speed = 0.01)
 
 
   
