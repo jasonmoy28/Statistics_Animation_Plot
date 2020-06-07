@@ -1,0 +1,97 @@
+---
+title: "Plot2_Code"
+author: "Jason Moy"
+date: "6/6/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+clone_repository_path = '/Users/Jasonmoy/Desktop/Hattrup Lab/Statistics_Animation_Plot' #edit here
+source(paste(clone_repository_path,'/saveGIF_simple_git_ver.R',sep = '')) # run the saveGIF_simple function 
+```
+
+```{r Negative skew plot,echo = F,comment = NA}
+# Negative skewed plot 
+x = seq(0,30,length = 1000)
+saveGIF_simple(for (df in seq(3,15,.5)) {
+  y = dchisq(x,df = df)
+  data = as.data.frame(cbind(x,y))
+  mode = df - 2
+  mean = mode + 4 - 1.5*log(mode)
+  median = mode + 2 - log(mode,3.8)
+  
+  plot_ = ggplot(mapping = aes(x,y),data = data) + 
+    geom_line() +
+    theme_classic() + 
+    
+    # add a line to represent mean, mode, and median
+    geom_line(data = data.frame(x = c(mean,mean), y = c(0,0.27)),
+              color = 'red3') +
+    geom_line(data = data.frame(x = c(median,median), y = c(0,0.27)),
+              color = 'green4') + 
+    geom_line(data = data.frame(x = c(mode,mode), y = c(0,0.27)),
+              color = 'blue4') + 
+    
+    # add a legend to show the representation of each line 
+    geom_line(data = data.frame(x = c(16 +8,17.5 + 8), y = c(.17,.17)),
+              color = 'blue4') + 
+    annotate(label = 'mode', x = 18.5 + 8.4, y = .17,geom = 'text') + 
+    
+    geom_line(data = data.frame(x = c(16 + 8,17.5 + 8), y = c(.185,.185)),
+              color = 'green4') + 
+    annotate(label = 'median', x = 18.7 + 8.5, y = .185,geom = 'text') + 
+    
+    geom_line(data = data.frame(x = c(16 + 8,17.5 + 8), y = c(.2,.2)),
+              color = 'red3',) + 
+    annotate(label = 'mean', x = 18.5 + 8.4, y = .2,geom = 'text')  + 
+    
+    # remove x-tick label, y-tick label 
+    theme(axis.text = element_blank(),
+          axis.ticks = element_blank())
+  
+  print(plot(plot_))},
+  movie_name = 'Plot1_negative_skew.gif', clone_repository_path = clone_repository_path)
+```
+
+```{r positive skew plot,echo = F,comment = NA}
+x = seq(0,30,length = 1000)
+saveGIF_simple(for (df in seq(3,15,.5)) {
+  x = seq(0,30,length = 1000)
+  y = dchisq(x,df = df)
+  x = -x
+  data = as.data.frame(cbind(x,y))
+  mode = -df  + 2
+  mean = mode - 4 + 1.5*log(abs(mode))
+  median = mode - 2 + log(abs(mode),3.8)
+  
+  plot_ = ggplot(mapping = aes(x,y),data = data) + 
+    geom_line() +
+    theme_classic() + 
+    
+    # add a line to represent mean, mode, and median
+    geom_line(data = data.frame(x = c(mean,mean), y = c(0,0.27)),
+              color = 'red3') +
+    geom_line(data = data.frame(x = c(median,median), y = c(0,0.27)),
+              color = 'green4') + 
+    geom_line(data = data.frame(x = c(mode,mode), y = c(0,0.27)),
+              color = 'blue4') + 
+    
+    # add a legend to show the representation of each line 
+    geom_line(data = data.frame(x = c(-28,-30), y = c(.17,.17)),
+              color = 'blue4') + 
+    annotate(label = 'mode', x = -26.5, y = .17,geom = 'text') + 
+    
+    geom_line(data = data.frame(x = c(-28,-30), y = c(.185,.185)),
+              color = 'green4') + 
+    annotate(label = 'median', x = -26.3, y = .185,geom = 'text') + 
+    
+    geom_line(data = data.frame(x = c(-28, -30), y = c(.2,.2)),
+              color = 'red3') + 
+    annotate(label = 'mean', x = -26.5, y = .2,geom = 'text') + 
+    
+    # remove x-tick label, y-tick label 
+    theme(axis.text = element_blank(),
+          axis.ticks = element_blank())
+  print(plot(plot_))},
+  movie_name = 'Plot1_positive_skew.gif', clone_repository_path = clone_repository_path)
+```
