@@ -12,7 +12,7 @@ saveGIF_simple({for (df in seq(3,15,.5)) {
   # Edit ggplot here 
   plot_ = ggplot(data = plot1_data_in_loop,aes(x = x,y = y)) + 
     lims(x = c(0,20), y = c(0,0.25)) + 
-    geom_line()hr
+    geom_line()
   print(plot(plot_))
 }},... = ani.options(interval = .1))
 
