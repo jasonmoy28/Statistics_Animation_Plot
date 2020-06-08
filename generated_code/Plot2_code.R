@@ -1,5 +1,5 @@
 #Must changed to the local clone repository path
-clone_repository_path = '/Users/Jasonmoy/Desktop/Hattrup Lab/Statistics_Animation_Plot' #edit here
+clone_repository_path = '/Users/Jasonmoy/Desktop/Hattrup_Lab/Statistics_Animation_Plot' #edit here
 source(paste(clone_repository_path,'/saveGIF_simple_git_ver.R',sep = '')) # run the saveGIF_simple function 
 
 # Graph created here 
@@ -7,7 +7,7 @@ x = seq(-5,5,0.15)
 
 saveGIF_simple(
   loop_object = 
-    for (sd in seq(1,3.5,.05)) {
+    for (sd in c(rep(1,5),seq(1,3.5,.05))) {
       y = dnorm(x,mean = 0,sd = sd)
       plot2_data_in_loop = as.data.frame(cbind(x, y,sd))
       text1 = paste0('S  =  $\\frac{',sd *67,'}{66}$')
@@ -25,7 +25,7 @@ saveGIF_simple(
   print(plot(plot_))}, 
   movie_name = 'Plot2.gif', 
   clone_repository_path = clone_repository_path,
-  loop_speed = 0.01)
+  loop_speed = 0.05, loop_number = 1)
 
 
   
