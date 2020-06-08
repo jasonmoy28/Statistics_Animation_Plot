@@ -13,7 +13,7 @@ Direction to access this repository:
 
 IDEAS FOR ANIMATING BASIC STATISTICS:
 
-1. Show how the mean and median pull away from the mode when a distribution becomes skewed (positively and negatively)
+1. **(COMPLETED)** Show how the mean and median pull away from the mode when a distribution becomes skewed (positively and negatively)
 
 2. **(COMPLETED)** Show how the variance and SD change when the spread of scores in a distribution changes.
 
