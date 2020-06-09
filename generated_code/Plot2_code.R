@@ -12,14 +12,15 @@ saveGIF_simple(
       loop_counter = loop_counter + 1 
       y = dnorm(x,mean = 0,sd = sd)
       plot2_data_in_loop = as.data.frame(cbind(x, y,sd))
-      text1 = paste0('S  =  $\\frac{',sd *67,'}{66}$')
-      text2 = paste0('$\\sigma =  \\frac{',sd *67,'}{67}$')
+      text1 = paste0('$S^2  =  \\frac{',sd *67,'}{66}$')
+      text2 = paste0('$\\sigma^2 =  \\frac{',sd *67,'}{67}$')
       text1_converted = TeX(text1)
       text2_converted = TeX(text2)
       plot_ = plot2_data_in_loop %>% 
         ggplot(data =.,aes(x = x,y = y)) + 
         geom_line() + 
-        labs(title = 'Relatioship between Standard Deviation & Distrbution') + 
+        labs(title = 'Relationship between Standard Deviation & Distrbution',
+             y = 'Frequency') + 
         theme_classic() + 
         lims(y = c(0,0.5)) + 
     annotate(geom = 'text',x = -4, y = 0.4, label = text1_converted) + 
