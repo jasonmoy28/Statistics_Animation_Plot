@@ -29,7 +29,7 @@ saveGIF_simple(for (moving_x in seq(-3.5,3.5,0.2)) {
     lims(y = c(0,0.5))
       
   print(plot(plot_))},
-  movie_name = 'Plot3_moving_X.gif', 
+  movie_name = 'Plot3_moving_X_with_z_score.gif', 
   clone_repository_path = clone_repository_path,
   loop_speed = 0.4, loop_number = 1)
 ```
@@ -54,7 +54,7 @@ saveGIF_simple(loop_object = for (sd in seq(1,5,0.2)) {
     lims(y = c(0,0.5))
       
   print(plot(plot_))},
-  movie_name = 'Plot3_moving_sd.gif', 
+  movie_name = 'Plot3_moving_sd_with_z_score.gif', 
   clone_repository_path = clone_repository_path,
   loop_speed = 0.4, loop_number = 1)
 ```
