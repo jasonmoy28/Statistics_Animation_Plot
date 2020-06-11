@@ -17,7 +17,7 @@ saveGIF_simple(for (moving_x in seq(-3.5,3.5,0.2)) {
   x = seq(-3.5,3.5,0.1)
   y = dnorm(x,mean = 0,sd = 1)
   plot2_data_in_loop = as.data.frame(cbind(x, y))
-  text = paste0('$\\Z =  \\frac{',round(moving_x,2),' -  0}{1}$ = ', moving_x)
+  text = paste0('$\\Z =  \\frac{',round_simple(moving_x,2),' -  0}{1}$ = ', moving_x)
   plot_ = plot2_data_in_loop %>% 
     ggplot(data =.,aes(x = x,y = y)) + 
     geom_line() + 
@@ -25,7 +25,7 @@ saveGIF_simple(for (moving_x in seq(-3.5,3.5,0.2)) {
     labs(title = 'Relationship between Z score & Normal Distribution',
          y = 'Frequency') + 
     theme_classic() + 
-    annotate(geom = 'text',x = -3, y = 0.45, label = latex2exp::TeX(text)) + 
+    annotate(geom = 'text',x = -2.5, y = 0.45, label = latex2exp::TeX(text)) + 
     lims(y = c(0,0.5))
       
   print(plot(plot_))},
@@ -42,7 +42,7 @@ saveGIF_simple(loop_object = for (sd in seq(1,5,0.2)) {
   x = seq(-7,7,0.1)
   y = dnorm(x,mean = 0,sd = sd)
   plot2_data_in_loop = as.data.frame(cbind(x, y))
-  text = paste0('$\\Z =  \\frac{',fix_X,' -  0}{',sd,'}$ = ',round(fix_X/sd,2))
+  text = paste0('$\\Z =  \\frac{',fix_X,' -  0}{',sd,'}$ = ',round_simple(fix_X/sd,2))
   plot_ = plot2_data_in_loop %>% 
     ggplot(data =.,aes(x = x,y = y)) + 
     geom_line() + 
