@@ -1,0 +1,61 @@
+---
+title: "Plot4_Code"
+author: "Jason Moy"
+date: "6/10/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+#Must changed to the local clone repository path
+clone_repository_path = '/Users/Jasonmoy/Desktop/Hattrup_Lab/Statistics_Animation_Plot' #edit here
+source(paste(clone_repository_path,'/saveGIF_simple_git_ver.R',sep = '')) # run the saveGIF_simple function 
+```
+
+```{r p value with moving X,echo = F,comment = NA}
+x = seq(0,10)
+saveGIF_simple(for (moving_x in seq(-3,3,0.2)) {
+  x = seq(-3,3,0.1)
+  y = dnorm(x,mean = 0,sd = 1)
+  plot2_data_in_loop = as.data.frame(cbind(x, y))
+  p_value = round_simple(pnorm(-abs(moving_x)),4)
+  text = paste('p = ', p_value)
+  plot_ = plot2_data_in_loop %>% 
+    ggplot(data =.,aes(x = x,y = y)) + 
+    geom_line() + 
+    geom_line(data = data.frame(x = c(moving_x,moving_x), y = c(0,0.4)),color = 'red') + 
+    labs(title = 'Relationship between P value & Normal Distribution',
+         y = 'Frequency') + 
+    theme_classic() + 
+    annotate(geom = 'text',x = -2.5, y = 0.45, label = text) + 
+    lims(y = c(0,0.5))
+
+  print(plot(plot_))},
+  movie_name = 'Plot4_moving_X_with_p_value.gif', 
+  clone_repository_path = clone_repository_path,
+  loop_speed = 0.4, loop_number = 1)
+```
+
+```{r p value with changing sd,echo = F,comment = NA}
+fix_X = 1.5
+x = seq(0,10)
+saveGIF_simple(loop_object = for (sd in seq(1,5,0.2)) {
+  x = seq(-7,7,0.1)
+  y = dnorm(x,mean = 0,sd = sd)
+  plot2_data_in_loop = as.data.frame(cbind(x, y))
+  p_value = round_simple(pnorm(-abs(fix_X),sd = sd),4)
+  text = paste('p = ', p_value)
+  plot_ = plot2_data_in_loop %>% 
+    ggplot(data =.,aes(x = x,y = y)) + 
+    geom_line() + 
+    geom_line(data = data.frame(x = c(fix_X,fix_X), y = c(0,0.4)),color = 'red') + 
+    labs(title = 'Relationship between P value & Normal Distribution',
+         y = 'Frequency') + 
+    theme_classic() + 
+    annotate(geom = 'text',x = -4.5, y = 0.45, label = latex2exp::TeX(text)) + 
+    lims(y = c(0,0.5))
+      
+  print(plot(plot_))},
+  movie_name = 'Plot4_moving_sd_with_p_value.gif', 
+  clone_repository_path = clone_repository_path,
+  loop_speed = 0.4, loop_number = 1)
+```
