@@ -18,7 +18,8 @@ saveGIF_simple(for (moving_x in seq(-3,3,0.2)) {
   y = dnorm(x,mean = 0,sd = 1)
   plot2_data_in_loop = as.data.frame(cbind(x, y))
   p_value = round_simple(pnorm(-abs(moving_x)),4)
-  text = paste('p = ', p_value)
+  text_p_value = paste('p = ', p_value)
+  text_Z_score = paste('$\\Z =  \\frac{',round_simple(moving_x,2),' -  0}{1}$ = ', round_simple(moving_x,2))
   plot_ = plot2_data_in_loop %>% 
     ggplot(data =.,aes(x = x,y = y)) + 
     geom_line() + 
@@ -26,9 +27,9 @@ saveGIF_simple(for (moving_x in seq(-3,3,0.2)) {
     labs(title = 'Relationship between P value & Normal Distribution',
          y = 'Frequency') + 
     theme_classic() + 
-    annotate(geom = 'text',x = -2.5, y = 0.45, label = text) + 
+    annotate(geom = 'text',x = -2.5, y = 0.45, label = TeX(text_Z_score)) + 
+    annotate(geom = 'text',x = -1.2, y = 0.45, label = text_p_value) + 
     lims(y = c(0,0.5))
-
   print(plot(plot_))},
   movie_name = 'Plot4_moving_X_with_p_value.gif', 
   clone_repository_path = clone_repository_path,
@@ -42,8 +43,9 @@ saveGIF_simple(loop_object = for (sd in seq(1,5,0.2)) {
   x = seq(-7,7,0.1)
   y = dnorm(x,mean = 0,sd = sd)
   plot2_data_in_loop = as.data.frame(cbind(x, y))
-  p_value = round_simple(pnorm(-abs(fix_X),sd = sd),4)
-  text = paste('p = ', p_value)
+  text_p_value = paste('p = ', round_simple(pnorm(-abs(fix_X),sd = sd),4))
+  text_Z_score = paste('$\\Z =  \\frac{',round_simple(fix_X,2),' -  0}{',sd,'}$ = ',round_simple(fix_X/sd,2))
+  P_Value_text = paste('p = ', p_value)
   plot_ = plot2_data_in_loop %>% 
     ggplot(data =.,aes(x = x,y = y)) + 
     geom_line() + 
@@ -51,7 +53,8 @@ saveGIF_simple(loop_object = for (sd in seq(1,5,0.2)) {
     labs(title = 'Relationship between P value & Normal Distribution',
          y = 'Frequency') + 
     theme_classic() + 
-    annotate(geom = 'text',x = -4.5, y = 0.45, label = latex2exp::TeX(text)) + 
+    annotate(geom = 'text',x = -5.5, y = 0.45, label = TeX(text_Z_score)) + 
+    annotate(geom = 'text',x = -2.5, y = 0.45, label = text_p_value) + 
     lims(y = c(0,0.5))
       
   print(plot(plot_))},
