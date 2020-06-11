@@ -17,9 +17,9 @@ IDEAS FOR ANIMATING BASIC STATISTICS:
 
 2. **(COMPLETED)** Show how the variance and SD change when the spread of scores in a distribution changes.
 
-3. Show how a Z-score is affected by (a) X – M (positive and negative and magnitude), and (b) SD (more or less).
+3. **(COMPLETED)** Show how a Z-score is affected by (a) X – M (positive and negative and magnitude), and (b) SD (more or less).
 
-4. Show how the p-value for a Z-score changes with (a) X – M, and (b) SD (Sigma_x).
+4. **(COMPLETED)** Show how the p-value for a Z-score changes with (a) X – M, and (b) SD (Sigma_x).
 
 5. Show how the Z for a sample mean is affected by (a) X – mu, and (b) Sigma_x.
 
