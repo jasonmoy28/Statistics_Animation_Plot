@@ -12,7 +12,7 @@ source(paste(clone_repository_path,'/saveGIF_simple_git_ver.R',sep = '')) # run 
 ```
 
 ```{r p value with moving X,echo = F,comment = NA}
-n = 100
+n = 10
 mu = 0 
 sd = 1
 saveGIF_simple(for (moving_x in seq(-3,3,0.2)) { # mu = 0, sigma = 1, n = 100
@@ -28,14 +28,16 @@ saveGIF_simple(for (moving_x in seq(-3,3,0.2)) { # mu = 0, sigma = 1, n = 100
     ggplot(data =.,aes(x = x,y = y)) + 
     geom_line() + 
     geom_line(data = data.frame(x = c(moving_x,moving_x), y = c(0,0.4)),color = 'red') + 
-    labs(title = 'Relationship between P value & Normal Distribution',
+    labs(title = 'Relationship Between Z score & Sample Mean Distribution',
+         subtitle = 'Changing X',
          y = 'Frequency') + 
     theme_classic() + 
-    annotate(geom = 'text',x = -2.5, y = 0.45, label = TeX(text_Z_score)) + 
-    annotate(geom = 'text',x = -1.2, y = 0.45, label = text_p_value) + 
+    annotate(geom = 'text',x = -2.3, y = 0.45, label = TeX(text_Z_score)) + 
+    # delete the comment to show p_value
+    #annotate(geom = 'text',x = -1, y = 0.45, label = text_p_value) + 
     lims(y = c(0,0.5))
   print(plot(plot_))},
-  movie_name = 'Plot5_moving_X_with_p_value.gif', 
+  movie_name = 'Plot5_moving_X_with_z_score.gif', 
   clone_repository_path = clone_repository_path,
   loop_speed = 0.4, loop_number = 1)
 ```
@@ -43,7 +45,7 @@ saveGIF_simple(for (moving_x in seq(-3,3,0.2)) { # mu = 0, sigma = 1, n = 100
 ```{r p value with changing sd,echo = F,comment = NA}
 fix_X = 1.5
 mu = 0
-n = 100
+n = 10
 saveGIF_simple(loop_object = for (sd in seq(1,5,0.2)) {
   x = seq(-7,7,0.1)
   y = dnorm(x,mean = 0,sd = sd)
@@ -56,16 +58,17 @@ saveGIF_simple(loop_object = for (sd in seq(1,5,0.2)) {
     ggplot(data =.,aes(x = x,y = y)) + 
     geom_line() + 
     geom_line(data = data.frame(x = c(fix_X,fix_X), y = c(0,0.4)),color = 'red') + 
-    labs(title = 'Relationship between P value & Normal Distribution',
+    labs(title = 'Relationship Between Z score & Sample Mean Distribution',
+         subtitle = TeX(paste0('Changing $\\sigma$')),
          y = 'Frequency') + 
     theme_classic() + 
-    # delete the comment to show z_score formula 
-    #annotate(geom = 'text',x = -5.5, y = 0.45, label = TeX(text_Z_score)) + 
-    annotate(geom = 'text',x = -2.5, y = 0.45, label = text_p_value) + 
+    annotate(geom = 'text',x = -5.5, y = 0.45, label = TeX(text_Z_score)) + 
+    # delete the comment to show p_value text
+    #annotate(geom = 'text',x = -2.5, y = 0.45, label = text_p_value) + 
     lims(y = c(0,0.5))
       
   print(plot(plot_))},
-  movie_name = 'Plot5_moving_sd_with_p_value.gif', 
+  movie_name = 'Plot5_moving_sd_with_z_score.gif', 
   clone_repository_path = clone_repository_path,
   loop_speed = 0.4, loop_number = 1)
 ```
@@ -73,7 +76,7 @@ saveGIF_simple(loop_object = for (sd in seq(1,5,0.2)) {
 ```{r p value with changing n,echo = F,comment = NA}
 fix_X = 1.5
 mu = 0
-n = 100
+n = 10
 saveGIF_simple(loop_object = for (sd in seq(1,5,0.2)) {
   x = seq(-7,7,0.1)
   y = dnorm(x,mean = 0,sd = sd)
@@ -89,13 +92,13 @@ saveGIF_simple(loop_object = for (sd in seq(1,5,0.2)) {
     labs(title = 'Relationship between P value & Normal Distribution',
          y = 'Frequency') + 
     theme_classic() + 
-    # delete the comment to show z_score 
-    #annotate(geom = 'text',x = -5.5, y = 0.45, label = TeX(text_Z_score)) + 
-    annotate(geom = 'text',x = -2.5, y = 0.45, label = text_p_value) + 
+    annotate(geom = 'text',x = -5.5, y = 0.45, label = TeX(text_Z_score)) + 
+    # delete the comment to show p_value text
+    #annotate(geom = 'text',x = -2.5, y = 0.45, label = text_p_value) + 
     lims(y = c(0,0.5))
       
   print(plot(plot_))},
-  movie_name = 'Plot5_moving_sd_with_p_value.gif', 
+  movie_name = 'Plot5_moving_sd_with_z_score.gif', 
   clone_repository_path = clone_repository_path,
   loop_speed = 0.4, loop_number = 1)
 ```
