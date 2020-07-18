@@ -11,7 +11,7 @@ clone_repository_path = '/Users/Jasonmoy/Desktop/Hattrup_Lab/Statistics_Animatio
 source(paste(clone_repository_path,'/saveGIF_simple_git_ver.R',sep = '')) # run the saveGIF_simple function 
 ```
 
-```{r p value with moving X,echo = F,comment = NA}
+```{r z_score with moving X,echo = F,comment = NA}
 n = 10
 mu = 0 
 sd = 1
@@ -22,7 +22,7 @@ saveGIF_simple(for (moving_x in seq(-3,3,0.2)) { # mu = 0, sigma = 1, n = 100
   plot2_data_in_loop = as.data.frame(cbind(x, y))
   p_value = round_simple(pnorm(-abs(moving_x)),4)
   z_score = (moving_x - mu)/(sd/sqrt(n))
-  text_p_value = paste('p = ', p_value)
+  text_p_value = glue('p = {p_value}')
   text_Z_score = paste('$\\Z =  \\frac{',round_simple(moving_x,2),' -  0}{1/\\sqrt{100}}$ = ', round_simple(z_score,2))
   plot_ = plot2_data_in_loop %>% 
     ggplot(data =.,aes(x = x,y = y)) + 
@@ -42,7 +42,7 @@ saveGIF_simple(for (moving_x in seq(-3,3,0.2)) { # mu = 0, sigma = 1, n = 100
   loop_speed = 0.4, loop_number = 1)
 ```
 
-```{r p value with changing sd,echo = F,comment = NA}
+```{r z_score with changing sd,echo = F,comment = NA}
 fix_X = 1.5
 mu = 0
 n = 10
