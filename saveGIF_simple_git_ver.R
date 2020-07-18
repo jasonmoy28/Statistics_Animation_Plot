@@ -6,6 +6,7 @@ saveGIF_simple <- function(loop_object,clone_repository_path,movie_name, loop_nu
   library('animation')
   library('tidyverse')
   library('latex2exp')
+  library('glue')
   save_path = paste(clone_repository_path,'/generated_graph/',movie_name,sep = '')
   saveGIF({loop_object}, movie.name = save_path,... = ani.options(interval = loop_speed, loop = loop_number))
 }

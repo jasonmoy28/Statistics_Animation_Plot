@@ -59,7 +59,8 @@ saveGIF_simple(loop_object = for (sd in seq(1,5,0.2)) {
     labs(title = 'Relationship between P value & Normal Distribution',
          y = 'Frequency') + 
     theme_classic() + 
-    annotate(geom = 'text',x = -5.5, y = 0.45, label = TeX(text_Z_score)) + 
+    # delete the comment to show z_score formula 
+    #annotate(geom = 'text',x = -5.5, y = 0.45, label = TeX(text_Z_score)) + 
     annotate(geom = 'text',x = -2.5, y = 0.45, label = text_p_value) + 
     lims(y = c(0,0.5))
       
@@ -88,7 +89,8 @@ saveGIF_simple(loop_object = for (sd in seq(1,5,0.2)) {
     labs(title = 'Relationship between P value & Normal Distribution',
          y = 'Frequency') + 
     theme_classic() + 
-    annotate(geom = 'text',x = -5.5, y = 0.45, label = TeX(text_Z_score)) + 
+    # delete the comment to show z_score 
+    #annotate(geom = 'text',x = -5.5, y = 0.45, label = TeX(text_Z_score)) + 
     annotate(geom = 'text',x = -2.5, y = 0.45, label = text_p_value) + 
     lims(y = c(0,0.5))
       
