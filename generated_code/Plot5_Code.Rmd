@@ -23,7 +23,7 @@ saveGIF_simple(for (moving_x in seq(-3,3,0.2)) { # mu = 0, sigma = 1, n = 100
   p_value = round_simple(pnorm(-abs(moving_x)),4)
   z_score = (moving_x - mu)/(sd/sqrt(n))
   text_p_value = glue('p = {p_value}')
-  text_Z_score = paste('$\\Z =  \\frac{',round_simple(moving_x,2),' -  0}{1/\\sqrt{100}}$ = ', round_simple(z_score,2))
+  text_Z_score = paste('$\\Z =  \\frac{',round_simple(moving_x,2),' -  0}{1/\\sqrt{',n,'}}$ = ', round_simple(z_score,2))
   plot_ = plot2_data_in_loop %>% 
     ggplot(data =.,aes(x = x,y = y)) + 
     geom_line() + 
@@ -52,7 +52,7 @@ saveGIF_simple(loop_object = for (sd in seq(1,5,0.2)) {
   plot2_data_in_loop = as.data.frame(cbind(x, y))
   z_score = (fix_X - mu)/(sd/sqrt(n))
   text_p_value = paste('p = ', round_simple(pnorm(-abs(fix_X),sd = sd),4))
-  text_Z_score = paste('$\\Z =  \\frac{',round_simple(fix_X,2),' -  0}{',sd,'/\\sqrt{100}}$ = ',round_simple(fix_X/sd,2))
+  text_Z_score = paste('$\\Z =  \\frac{',round_simple(fix_X,2),' -  0}{',sd,'/\\sqrt{',n,'}}$ = ',round_simple(fix_X/sd,2))
   P_Value_text = paste('p = ', p_value)
   plot_ = plot2_data_in_loop %>% 
     ggplot(data =.,aes(x = x,y = y)) + 
@@ -73,7 +73,7 @@ saveGIF_simple(loop_object = for (sd in seq(1,5,0.2)) {
   loop_speed = 0.4, loop_number = 1)
 ```
 
-```{r p value with changing n,echo = F,comment = NA}
+```{r z_score with changing n,echo = F,comment = NA}
 fix_X = 1.5
 mu = 0
 n = 10
