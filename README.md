@@ -25,7 +25,7 @@ IDEAS FOR ANIMATING BASIC STATISTICS:
 
 6. **(PARTIALLY COMPLETED)** Show how the p-value for a sample mean changes with (a) X – mu, and (b) Sigma_x.
 
-7. Show how changes in X-mu and sigma_x and N influence the location of a sample mean Z relative to the critical value of Z (i.e. 1.96 or 2.58). i.e. Can we flash lights when Zm exceeds 1.96 in absolute value (i.e. when Ho should be rejected)?
+7. (**PARTIALLY COMPLETED)** Show how changes in X-mu and sigma_x and N influence the location of a sample mean Z relative to the critical value of Z (i.e. 1.96 or 2.58). i.e. Can we flash lights when Zm exceeds 1.96 in absolute value (i.e. when Ho should be rejected)?
 
 8. Show how Single Sample t is affected by X-M, SDx, and n. i.e. Can we flash lights when t exceeds the critical value (reject Ho)?
 
