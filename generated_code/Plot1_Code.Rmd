@@ -4,6 +4,9 @@ author: "Jason Moy"
 date: "6/6/2020"
 output: html_document
 ---
+# Prompt: Show how the mean and median pull away from the mode when a distribution becomes skewed (positively and negatively)
+
+# Progress: Completed
 
 ```{r setup, include=FALSE}
 clone_repository_path = '/Users/Jasonmoy/Desktop/Hattrup_Lab/Statistics_Animation_Plot' #edit here
