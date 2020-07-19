@@ -38,6 +38,7 @@ saveGIF_simple(for (moving_x in seq(-3,3,0.2)) { # mu = 0, sigma = 1, n = 100
   z_score = (moving_x - mu)/(sd/sqrt(n))
   text_p_value = glue('p = {p_value}')
   text_Z_score = paste('$\\Z =  \\frac{',round_simple(moving_x,2),' -  0}{',sd,'/\\sqrt{',n,'}}$ = ', round_simple(z_score,2))
+  text_subtitle = paste('Changing X - $\\mu$')
   
   # Created plot 
   if (moving_x < 1.9) {
@@ -46,7 +47,7 @@ saveGIF_simple(for (moving_x in seq(-3,3,0.2)) { # mu = 0, sigma = 1, n = 100
     geom_line() + 
     geom_line(data = data.frame(x = c(moving_x,moving_x), y = c(0,0.45)),color = 'blue') +
     labs(title = 'Relationship Between Z score & Sample Mean Distribution',
-         subtitle = 'Changing X',
+         subtitle = TeX(text_subtitle),
          y = 'Frequency') + 
     theme_classic() + 
     
