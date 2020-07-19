@@ -6,7 +6,7 @@ output: html_document
 ---
 # Prompt:  Show how the p-value for a sample mean changes with (a) X – mu, and (b) Sigma_x.
 
-# Progress: Changing X - mu and Sigma_X is completed. Awaiting feedback from whether need to do a graph for changing `N`. 
+# Progress: Completed
 
 ```{r setup, include=FALSE}
 #Must changed to the local clone repository path
@@ -17,27 +17,33 @@ source(paste(clone_repository_path,'/saveGIF_simple_git_ver.R',sep = '')) # run 
 ```{r p_value with moving X,echo = F,comment = NA}
 n = 10
 mu = 0 
-sd = 1
+sd = 3
+standard_error = sd/sqrt(n)
 saveGIF_simple(for (moving_x in seq(-3,3,0.2)) { # mu = 0, sigma = 1, n = 100
   # set the range of x 
   x = seq(-3,3,0.1)
-  y = dnorm(x,mean = 0,sd = sd)
+  y = dnorm(x,mean = 0,sd = standard_error)
   plot2_data_in_loop = as.data.frame(cbind(x, y))
   p_value = round_simple(pnorm(-abs(moving_x)),4)
   z_score = (moving_x - mu)/(sd/sqrt(n))
+  
+  # Created text 
   text_p_value = glue('p = {p_value}')
-  text_Z_score = paste('$\\Z =  \\frac{',round_simple(moving_x,2),' -  0}{1/\\sqrt{',n,'}}$ = ', round_simple(z_score,2))
+  text_Z_score = paste('$\\Z =  \\frac{',round_simple(moving_x,2),' -  0}{,',sd,'/\\sqrt{',n,'}}$ = ', round_simple(z_score,2))
+  text_subtitle = paste('Changing X - $\\mu$')
+  
   plot_ = plot2_data_in_loop %>% 
     ggplot(data =.,aes(x = x,y = y)) + 
     geom_line() + 
-    geom_line(data = data.frame(x = c(moving_x,moving_x), y = c(0,0.4)),color = 'red') + 
-    labs(title = 'Relationship Between Z score & Sample Mean Distribution',
-         subtitle = 'Changing X',
+    geom_line(data = data.frame(x = c(moving_x,moving_x), y = c(0,0.5)),color = 'red') + 
+    labs(title = 'Relationship Between P Value & Sample Mean Distribution',
+         subtitle = TeX(text_subtitle),
          y = 'Frequency') + 
     theme_classic() + 
-    annotate(geom = 'text',x = -2.5, y = 0.45, label = TeX(text_Z_score)) + 
-    annotate(geom = 'text',x = -1, y = 0.45, label = text_p_value) + 
-    lims(y = c(0,0.5))
+    # delete comment to show z_score
+    #annotate(geom = 'text',x = -2.5, y = 0.6, label = TeX(text_Z_score)) + 
+    annotate(geom = 'text',x = -2.5, y = 0.6, label = text_p_value) + 
+    lims(y = c(0,0.65))
   print(plot(plot_))},
   movie_name = 'Plot6_moving_X_with_p_value.gif', 
   clone_repository_path = clone_repository_path,
@@ -45,22 +51,28 @@ saveGIF_simple(for (moving_x in seq(-3,3,0.2)) { # mu = 0, sigma = 1, n = 100
 ```
 
 ```{r p_value with changing sd,echo = F,comment = NA}
-fix_X = 1.5
+fix_X = 1
 mu = 0
 n = 10
-saveGIF_simple(loop_object = for (sd in seq(1,5,0.2)) {
+saveGIF_simple(loop_object = for (sd in seq(3,7,0.2)) {
+  # Construct the distribution
   x = seq(-7,7,0.1)
-  y = dnorm(x,mean = 0,sd = sd)
+  standard_error = sd/sqrt(n)
+  y = dnorm(x,mean = 0,sd = standard_error)
   plot2_data_in_loop = as.data.frame(cbind(x, y))
   z_score = (fix_X - mu)/(sd/sqrt(n))
-  text_p_value = paste('p = ', round_simple(pnorm(-abs(fix_X),sd = sd),4))
-  text_Z_score = paste('$\\Z =  \\frac{',round_simple(fix_X,2),' -  0}{',sd,'/\\sqrt{',n,'}}$ = ',round_simple(fix_X/sd,2))
+  
+  # Created text to display 
+  text_p_value = paste('p = ', round_simple(pnorm(-abs(fix_X),sd = standard_error),4))
+  text_Z_score = paste('$\\Z =  \\frac{',round_simple(fix_X,2),' -  0}{',sd,'/\\sqrt{',n,'}}$ = ',round_simple(z_score,2))
   P_Value_text = paste('p = ', p_value)
+  
+  # Created plot 
   plot_ = plot2_data_in_loop %>% 
     ggplot(data =.,aes(x = x,y = y)) + 
     geom_line() + 
     geom_line(data = data.frame(x = c(fix_X,fix_X), y = c(0,0.4)),color = 'red') + 
-    labs(title = 'Relationship Between Z score & Sample Mean Distribution',
+    labs(title = 'Relationship Between P Value & Sample Mean Distribution',
          subtitle = TeX(paste0('Changing $\\sigma$')),
          y = 'Frequency') + 
     theme_classic() + 
@@ -77,36 +89,40 @@ saveGIF_simple(loop_object = for (sd in seq(1,5,0.2)) {
 ```
 
 
-
-
-
-## Have not completed 
 ```{r p value with changing n,echo = F,comment = NA}
 fix_X = 1.5
 mu = 0
-n = 10
-saveGIF_simple(loop_object = for (sd in seq(1,5,0.2)) {
+sd = 3
+saveGIF_simple(loop_object = for (n in seq(14,4,-1)) {
   x = seq(-7,7,0.1)
-  y = dnorm(x,mean = 0,sd = sd)
+  standard_error = sd/sqrt(n)
+  y = dnorm(x,mean = 0,sd = standard_error)
+  
   plot2_data_in_loop = as.data.frame(cbind(x, y))
   z_score = (fix_X - mu)/(sd/sqrt(n))
-  text_p_value = paste('p = ', round_simple(pnorm(-abs(fix_X),sd = sd),4))
-  text_Z_score = paste('$\\Z =  \\frac{',round_simple(fix_X,2),' -  0}{',sd,'/\\sqrt{100}}$ = ',round_simple(fix_X/sd,2))
+  
+  # Created text to display 
+  text_p_value = paste('p = ', round_simple(pnorm(-abs(fix_X),sd = standard_error),4))
+  text_Z_score = paste('$\\Z =  \\frac{',round_simple(fix_X,2),' -  0}{',sd,'/\\sqrt{',n,'}}$ = ', round_simple(z_score,2))
   P_Value_text = paste('p = ', p_value)
+  
+  # Created plot 
   plot_ = plot2_data_in_loop %>% 
     ggplot(data =.,aes(x = x,y = y)) + 
     geom_line() + 
     geom_line(data = data.frame(x = c(fix_X,fix_X), y = c(0,0.4)),color = 'red') + 
     labs(title = 'Relationship between P value & Normal Distribution',
+         subtitle = 'Changing Sample Size',
          y = 'Frequency') + 
     theme_classic() + 
-    annotate(geom = 'text',x = -5.5, y = 0.45, label = TeX(text_Z_score)) + 
-    # delete the comment to show p_value text
-    #annotate(geom = 'text',x = -2.5, y = 0.45, label = text_p_value) + 
+    
+    #delete the comment to show p_value text
+    #annotate(geom = 'text',x = -5.5, y = 0.45, label = TeX(text_Z_score)) + 
+    annotate(geom = 'text',x = -5.5, y = 0.45, label = text_p_value) + 
     lims(y = c(0,0.5))
       
   print(plot(plot_))},
-  movie_name = 'Plot5_moving_sd_with_z_score.gif', 
+  movie_name = 'Plot6_moving_sample_size_with_p_value.gif', 
   clone_repository_path = clone_repository_path,
   loop_speed = 0.4, loop_number = 1)
 ```
