@@ -4,6 +4,9 @@ author: "Jason Moy"
 date: "7/10/2020"
 output: html_document
 ---
+# Prompt: Show how the Z for a sample mean is affected by (a) X – mu, and (b) Sigma_x.
+
+# Progress: Changing X - mu and Sigma_X is completed. Awaiting feedback from whether need to do a graph for changing `N`. 
 
 ```{r setup, include=FALSE}
 #Must changed to the local clone repository path

@@ -4,7 +4,9 @@ author: "Jason Moy"
 date: "6/8/2020"
 output: html_document
 ---
+# Prompt: Show how a Z-score is affected by (a) X – M (positive and negative and magnitude), and (b) SD (more or less).
 
+# Prorgess: Completed
 ```{r setup, include=FALSE}
 #Must changed to the local clone repository path
 clone_repository_path = '/Users/Jasonmoy/Desktop/Hattrup_Lab/Statistics_Animation_Plot' #edit here

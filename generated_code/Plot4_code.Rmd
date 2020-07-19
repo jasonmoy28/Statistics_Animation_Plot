@@ -4,6 +4,9 @@ author: "Jason Moy"
 date: "6/10/2020"
 output: html_document
 ---
+# Prompt: Show how the p-value for a Z-score changes with (a) X – M, and (b) SD (Sigma_x).
+
+# Progress: Completed
 
 ```{r setup, include=FALSE}
 #Must changed to the local clone repository path
