@@ -56,18 +56,27 @@ saveGIF_simple(for (moving_x in seq(-3,3,0.2)) { # mu = 0, sigma = 1, n = 100
     lims(y = c(0,.6))} 
   else {plot_ = plot2_data_in_loop %>% 
     ggplot(data =.,aes(x = x,y = y)) + 
+    # Created the distribution line 
     geom_line() + 
+    
+    # Added critical line: used 1.96 as X since this is a standard normal distribution
+    geom_area(data = critical_value_data, aes(x = x_crtical_value, y = y_critical_value),fill = 'red') + 
+    
+    # Created the moving_x line 
     geom_line(data = data.frame(x = c(moving_x,moving_x), y = c(0,0.45)),color = 'blue') +
+    
+    # Added title and x & y axis name 
     labs(title = 'Relationship Between Z score & Sample Mean Distribution',
-         subtitle = 'Changing X',
+         subtitle = TeX(text_subtitle),
          y = 'Frequency') + 
     theme_classic() + 
     
+    # Display z_score and p_value formula 
     annotate(geom = 'text',x = -2.5, y = 0.55, label = TeX(text_Z_score)) + 
     annotate(geom = 'text',x = -1, y = 0.55, label = text_p_value) + 
-    lims(y = c(0,.6)) +
-    # Added critical line: used 1.96 as X since this is a standard normal distribution
-    geom_area(data = critical_value_data, aes(x = x_crtical_value, y = y_critical_value),fill = 'red')}
+    
+    # Set y limit 
+    lims(y = c(0,.6))}
     print(plot(plot_))},
   movie_name = 'Plot7_moving_X.gif', 
   clone_repository_path = clone_repository_path,
