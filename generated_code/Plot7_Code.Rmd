@@ -7,7 +7,7 @@ output: html_document
 
 # Prompt: Show how changes in X-mu and sigma_x and N influence the location of a sample mean Z relative to the critical value of Z (i.e. 1.96 or 2.58). i.e. Can we flash lights when Zm exceeds 1.96 in absolute value (i.e. when Ho should be rejected)?
 
-# Progress: Change in `X-mu` is completed. Awaiting feedback in making plots for changing `sigma` and `N`
+# Progress: Completed 
 
 ```{r setup, include=FALSE}
 #Must changed to the local clone repository path
@@ -186,10 +186,11 @@ text_y_position = 0.45
 text_z_score_x_position = -5.5
 text_z_score_y_position = -2.5
 current_x_upper_y_lim = 0.4
-saveGIF_simple(for (n in seq(8,1,-.5)) { # mu = 0, sigma = 1, n = 100
+
+saveGIF_simple(for (n in seq(8,4,-.3)) { # mu = 0, sigma = 1, n = 100
   # Initialized data to construct the distribution 
   # Construct a standard normal distribution 
-  x = seq(-7,7,0.1)
+  x = seq(x_low_lim,x_upper_lim,0.1)
   standard_error = sd/sqrt(n)
   y = dnorm(x,mean = mu,sd = standard_error)
   plot2_data_in_loop = as.data.frame(cbind(x, y))
