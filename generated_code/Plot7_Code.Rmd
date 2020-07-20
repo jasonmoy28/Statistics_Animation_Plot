@@ -350,7 +350,7 @@ text_y_position = 0.45
 text_z_score_x_position = -5.5
 text_z_score_y_position = -2.5
 current_x_upper_y_lim = 0.4
-Output_gif_name = 'Plot7_moving_sample_size_with_z_distribution_negative_critical_value.gif'
+Output_gif_name = 'Plot7_moving_sample_size_with_z_distribution_positive_critical_value.gif'
 
 saveGIF_simple(for (n in seq(8,4,-.3)) { # mu = 0, sigma = 1, n = 100
   # Initialized data to construct the distribution 
