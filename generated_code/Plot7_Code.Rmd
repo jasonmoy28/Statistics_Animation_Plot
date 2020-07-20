@@ -17,11 +17,14 @@ source(paste(clone_repository_path,'/saveGIF_simple_git_ver.R',sep = '')) # run 
 
 # Moving `X - mu` with critical value
 ```{r moving X with critical value ,echo = F,comment = NA}
+# Set parameter 
 n = 10
 mu = 0 
 sd = 3
 standard_error = sd/sqrt(n)
+crtical_value_prob = 0.025
 
+# Set graphing parameter
 saveGIF_simple(for (moving_x in seq(-3,3,0.2)) { # mu = 0, sigma = 1, n = 100
   # Initialized data to construct the distribution 
   # Construct a standard normal distribution 
@@ -30,12 +33,13 @@ saveGIF_simple(for (moving_x in seq(-3,3,0.2)) { # mu = 0, sigma = 1, n = 100
   plot2_data_in_loop = as.data.frame(cbind(x, y))
   
   # Created data to fill the area with critical value 
-  x_crtical_value = seq(1.96,3,0.01)
+  x_critical_value = -qnorm(crtical_value_prob,mean = mu,sd = standard_error)
+  x_crtical_value_seq = seq(x_crtical_value,3,0.01)
   y_critical_value = dnorm(x_crtical_value,mean = mu, sd = standard_error)
-  critical_value_data = as.data.frame(cbind(x_crtical_value,y_critical_value))
+  critical_value_data = as.data.frame(cbind(x_crtical_value_seq,y_critical_value))
   
   # Caculated z_score & p_value 
-  p_value = round_simple(pnorm(-abs(moving_x)),4)
+  p_value = round_simple(pnorm(q = -abs(moving_x),mean = mu, sd = standard_error),4)
   z_score = (moving_x - mu)/(sd/sqrt(n))
   text_p_value = glue('p = {p_value}')
   text_Z_score = paste('$\\Z =  \\frac{',round_simple(moving_x,2),' -  0}{',sd,'/\\sqrt{',n,'}}$ = ', round_simple(z_score,2))
@@ -43,7 +47,7 @@ saveGIF_simple(for (moving_x in seq(-3,3,0.2)) { # mu = 0, sigma = 1, n = 100
   text_title = 'Relationship Between Z score & Sampling Mean Distribution'
   
   # Created plot 
-  if (moving_x < 1.9) { # if_else statment to show red area when fix_X exceeded critical boundary (i.e. 1.96 z_score). The else chunk code is same as the code in the if chunk except added a line of code for filling the area beyond critical value with red  
+  if (z_score > x_critical_value) { # if_else statment to show red area when fix_X exceeded critical boundary (i.e. 1.96 z_score). The else chunk code is same as the code in the if chunk except added a line of code for filling the area beyond critical value with red  
   plot_ = plot2_data_in_loop %>% 
     ggplot(data =.,aes(x = x,y = y)) + 
     geom_line() + 
@@ -90,30 +94,35 @@ saveGIF_simple(for (moving_x in seq(-3,3,0.2)) { # mu = 0, sigma = 1, n = 100
 n = 10
 mu = 0 
 fix_X = 3.5
+critical_value_prob = 0.025
+x_low_lim = -7 
+x_upper_lim = 7
 
-saveGIF_simple(for (sd in seq(4,7,0.15)) { # mu = 0, sigma = 1, n = 100
+saveGIF_simple(for (sd in seq(3.39,7,0.13)) {
   # Initialized data to construct the distribution 
   # Construct a standard normal distribution 
-  x = seq(-7,7,0.1)
+  x = seq(x_low_lim,x_upper_lim,0.1)
   standard_error = sd/sqrt(n)
   y = dnorm(x,mean = mu,sd = standard_error)
   plot2_data_in_loop = as.data.frame(cbind(x, y))
   
   # Created data to fill the area with critical value 
-  x_critical_value = 1.96 * standard_error + mu
-  x_crtical_value_seq = seq(x_critical_value,7,0.01)
+  x_critical_value = -qnorm(p = critical_value_prob,mean = mu,sd = standard_error)
+  # caculate critical value based on mu and standard error 
+  x_crtical_value_seq = seq(x_critical_value,x_upper_lim,0.01)
   y_critical_value = dnorm(x_crtical_value_seq,mean = mu, sd = standard_error)
   critical_value_data = as.data.frame(cbind(x_crtical_value_seq,y_critical_value))
   
   # Caculated z_score & p_value 
   z_score = (fix_X - mu)/standard_error
-  text_p_value = paste('p = ', round_simple(pnorm(-abs(fix_X),sd = standard_error),4))
+  p_value = round_simple(pnorm(q = -abs(z_score),mean = mu,sd = standard_error),4)
+  text_p_value = paste('p = ', p_value)
   text_Z_score = paste('$\\Z =  \\frac{',round_simple(fix_X,2),' -  0}{',sd,'/\\sqrt{',n,'}}$ = ',round_simple(z_score,2))
   text_subtitle = paste0('Changing $\\sigma$')
   text_title = 'Relationship Between Z score & Sampling Mean Distribution'
   
   # Created plot 
-  if (z_score < 1.96) { # if_else statment to show red area when fix_X exceeded critical boundary (i.e. 1.96 z_score). The else chunk code is same as the code in the if chunk except added a line of code for filling the area beyond critical value with red  
+  if (z_score < x_critical_value) { # if_else statment to show red area when fix_X exceeded critical boundary (i.e. 1.96 z_score). The else chunk code is same as the code in the if chunk except added a line of code for filling the area beyond critical value with red  
    plot_ = plot2_data_in_loop %>% 
     ggplot(data =.,aes(x = x,y = y)) + 
     geom_line() + 
