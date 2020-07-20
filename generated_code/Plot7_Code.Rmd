@@ -15,7 +15,8 @@ clone_repository_path = '/Users/Jasonmoy/Desktop/Hattrup_Lab/Statistics_Animatio
 source(paste(clone_repository_path,'/saveGIF_simple_git_ver.R',sep = '')) # run the saveGIF_simple function 
 ```
 
-```{r p_value with moving X,echo = F,comment = NA}
+# Moving `X - mu` with critical value
+```{r moving X with critical value ,echo = F,comment = NA}
 n = 10
 mu = 0 
 sd = 3
@@ -39,19 +40,20 @@ saveGIF_simple(for (moving_x in seq(-3,3,0.2)) { # mu = 0, sigma = 1, n = 100
   text_p_value = glue('p = {p_value}')
   text_Z_score = paste('$\\Z =  \\frac{',round_simple(moving_x,2),' -  0}{',sd,'/\\sqrt{',n,'}}$ = ', round_simple(z_score,2))
   text_subtitle = paste('Changing X - $\\mu$')
+  text_title = 'Relationship Between Z score & Sampling Mean Distribution'
   
   # Created plot 
-  if (moving_x < 1.9) {
+  if (moving_x < 1.9) { # if_else statment to show red area when fix_X exceeded critical boundary (i.e. 1.96 z_score). The else chunk code is same as the code in the if chunk except added a line of code for filling the area beyond critical value with red  
   plot_ = plot2_data_in_loop %>% 
     ggplot(data =.,aes(x = x,y = y)) + 
     geom_line() + 
     geom_line(data = data.frame(x = c(moving_x,moving_x), y = c(0,0.45)),color = 'blue') +
-    labs(title = 'Relationship Between Z score & Sample Mean Distribution',
+    labs(title = text_title, 
          subtitle = TeX(text_subtitle),
          y = 'Frequency') + 
     theme_classic() + 
     
-    annotate(geom = 'text',x = -2.5, y = 0.55, label = TeX(text_Z_score)) + 
+    annotate(geom = 'text',x = -2.3, y = 0.55, label = TeX(text_Z_score)) + 
     annotate(geom = 'text',x = -1, y = 0.55, label = text_p_value) + 
     lims(y = c(0,.6))} 
   else {plot_ = plot2_data_in_loop %>% 
@@ -66,20 +68,142 @@ saveGIF_simple(for (moving_x in seq(-3,3,0.2)) { # mu = 0, sigma = 1, n = 100
     geom_line(data = data.frame(x = c(moving_x,moving_x), y = c(0,0.45)),color = 'blue') +
     
     # Added title and x & y axis name 
-    labs(title = 'Relationship Between Z score & Sample Mean Distribution',
+    labs(title = text_title,
          subtitle = TeX(text_subtitle),
          y = 'Frequency') + 
     theme_classic() + 
     
     # Display z_score and p_value formula 
-    annotate(geom = 'text',x = -2.5, y = 0.55, label = TeX(text_Z_score)) + 
+    annotate(geom = 'text',x = -2.3, y = 0.55, label = TeX(text_Z_score)) + 
     annotate(geom = 'text',x = -1, y = 0.55, label = text_p_value) + 
     
     # Set y limit 
     lims(y = c(0,.6))}
     print(plot(plot_))},
-  movie_name = 'Plot7_moving_X.gif', 
+  movie_name = 'Plot7_moving_X_with_z_distribution_critical_value.gif', 
   clone_repository_path = clone_repository_path,
   loop_speed = 0.4, loop_number = 1)
 ```
 
+# Moving `sigma` with critical value 
+```{r moving SD with critical value ,echo = F,comment = NA}
+n = 10
+mu = 0 
+fix_X = 3.5
+
+saveGIF_simple(for (sd in seq(4,7,0.15)) { # mu = 0, sigma = 1, n = 100
+  # Initialized data to construct the distribution 
+  # Construct a standard normal distribution 
+  x = seq(-7,7,0.1)
+  standard_error = sd/sqrt(n)
+  y = dnorm(x,mean = mu,sd = standard_error)
+  plot2_data_in_loop = as.data.frame(cbind(x, y))
+  
+  # Created data to fill the area with critical value 
+  x_critical_value = 1.96 * standard_error + mu
+  x_crtical_value_seq = seq(x_critical_value,7,0.01)
+  y_critical_value = dnorm(x_crtical_value_seq,mean = mu, sd = standard_error)
+  critical_value_data = as.data.frame(cbind(x_crtical_value_seq,y_critical_value))
+  
+  # Caculated z_score & p_value 
+  z_score = (fix_X - mu)/standard_error
+  text_p_value = paste('p = ', round_simple(pnorm(-abs(fix_X),sd = standard_error),4))
+  text_Z_score = paste('$\\Z =  \\frac{',round_simple(fix_X,2),' -  0}{',sd,'/\\sqrt{',n,'}}$ = ',round_simple(z_score,2))
+  text_subtitle = paste0('Changing $\\sigma$')
+  text_title = 'Relationship Between Z score & Sampling Mean Distribution'
+  
+  # Created plot 
+  if (z_score < 1.96) { # if_else statment to show red area when fix_X exceeded critical boundary (i.e. 1.96 z_score). The else chunk code is same as the code in the if chunk except added a line of code for filling the area beyond critical value with red  
+   plot_ = plot2_data_in_loop %>% 
+    ggplot(data =.,aes(x = x,y = y)) + 
+    geom_line() + 
+    geom_line(data = data.frame(x = c(fix_X,fix_X), y = c(0,0.4)),color = 'blue') + 
+    labs(title = 'Relationship Between Z Score & Sample Mean Distribution',
+         subtitle = TeX(text_subtitle),
+         y = 'Frequency') + 
+    theme_classic() + 
+    
+    annotate(geom = 'text',x = -5.5, y = 0.45, label = TeX(text_Z_score)) + 
+    annotate(geom = 'text',x = -2.5, y = 0.45, label = text_p_value) + 
+    lims(y = c(0,0.5))} 
+  else {
+  plot_ = plot2_data_in_loop %>% 
+    ggplot(data =.,aes(x = x,y = y)) + 
+    geom_line() + 
+     # Added critical line: used 1.96 as X since this is a standard normal distribution
+    geom_area(data = critical_value_data, aes(x = x_crtical_value_seq, y = y_critical_value),fill = 'red') + 
+    geom_line(data = data.frame(x = c(fix_X,fix_X), y = c(0,0.4)),color = 'blue') + 
+    labs(title = 'Relationship Between Z Score & Sample Mean Distribution',
+         subtitle = TeX(text_subtitle),
+         y = 'Frequency') + 
+    theme_classic() + 
+    
+    annotate(geom = 'text',x = -5.5, y = 0.45, label = TeX(text_Z_score)) + 
+    annotate(geom = 'text',x = -2.5, y = 0.45, label = text_p_value) + 
+    lims(y = c(0,0.5))}
+    print(plot(plot_))},
+  movie_name = 'Plot7_moving_sigma_with_z_distribution_critical_value.gif', 
+  clone_repository_path = clone_repository_path,
+  loop_speed = 0.4, loop_number = 1)
+```
+# Moving `N` with critical value 
+```{r moving SD with critical value ,echo = F,comment = NA}
+sd = 3
+mu = 0 
+fix_X = 3.5
+
+saveGIF_simple(for (n in seq(8,1,-.5)) { # mu = 0, sigma = 1, n = 100
+  # Initialized data to construct the distribution 
+  # Construct a standard normal distribution 
+  x = seq(-7,7,0.1)
+  standard_error = sd/sqrt(n)
+  y = dnorm(x,mean = mu,sd = standard_error)
+  plot2_data_in_loop = as.data.frame(cbind(x, y))
+  
+  # Created data to fill the area with critical value 
+  x_critical_value = 1.96 * standard_error + mu
+  x_crtical_value_seq = seq(x_critical_value,7,0.01)
+  y_critical_value = dnorm(x_crtical_value_seq,mean = mu, sd = standard_error)
+  critical_value_data = as.data.frame(cbind(x_crtical_value_seq,y_critical_value))
+  
+  # Caculated z_score & p_value 
+  z_score = (fix_X - mu)/standard_error
+  text_p_value = paste('p = ', round_simple(pnorm(-abs(fix_X),sd = standard_error),4))
+  text_Z_score = paste('$\\Z =  \\frac{',round_simple(fix_X,2),' -  0}{',sd,'/\\sqrt{',n,'}}$ = ',round_simple(z_score,2))
+  text_subtitle = paste0('Changing N')
+  text_title = 'Relationship Between Z Score & Sampling Mean Distribution'
+  
+  # Created plot 
+  if (z_score < 1.96) { # if_else statment to show red area when fix_X exceeded critical boundary (i.e. 1.96 z_score). The else chunk code is same as the code in the if chunk except added a line of code for filling the area beyond critical value with red  
+   plot_ = plot2_data_in_loop %>% 
+    ggplot(data =.,aes(x = x,y = y)) + 
+    geom_line() + 
+    geom_line(data = data.frame(x = c(fix_X,fix_X), y = c(0,0.4)),color = 'blue') + 
+    labs(title = 'Relationship Between Z Score & Sample Mean Distribution',
+         subtitle = TeX(text_subtitle),
+         y = 'Frequency') + 
+    theme_classic() + 
+    
+    annotate(geom = 'text',x = -5.5, y = 0.45, label = TeX(text_Z_score)) + 
+    annotate(geom = 'text',x = -2.5, y = 0.45, label = text_p_value) + 
+    lims(y = c(0,0.5))} 
+  else {
+  plot_ = plot2_data_in_loop %>% 
+    ggplot(data =.,aes(x = x,y = y)) + 
+    geom_line() + 
+     # Added critical line: used 1.96 as X since this is a standard normal distribution
+    geom_area(data = critical_value_data, aes(x = x_crtical_value_seq, y = y_critical_value),fill = 'red') + 
+    geom_line(data = data.frame(x = c(fix_X,fix_X), y = c(0,0.4)),color = 'blue') + 
+    labs(title = 'Relationship Between Z Score & Sample Mean Distribution',
+         subtitle = TeX(text_subtitle),
+         y = 'Frequency') + 
+    theme_classic() + 
+    
+    annotate(geom = 'text',x = -5.5, y = 0.45, label = TeX(text_Z_score)) + 
+    annotate(geom = 'text',x = -2.5, y = 0.45, label = text_p_value) + 
+    lims(y = c(0,0.5))}
+    print(plot(plot_))},
+  movie_name = 'Plot7_moving_sample_size_with_z_distribution_critical_value.gif', 
+  clone_repository_path = clone_repository_path,
+  loop_speed = 0.4, loop_number = 1)
+```
