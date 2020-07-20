@@ -65,7 +65,7 @@ saveGIF_simple(loop_object = for (sd in seq(3,7,0.2)) {
   # Created text to display 
   text_p_value = paste('p = ', round_simple(pnorm(-abs(fix_X),sd = standard_error),4))
   text_Z_score = paste('$\\Z =  \\frac{',round_simple(fix_X,2),' -  0}{',sd,'/\\sqrt{',n,'}}$ = ',round_simple(z_score,2))
-  P_Value_text = paste('p = ', p_value)
+  text_subtitle = paste0('Changing $\\sigma$')
   
   # Created plot 
   plot_ = plot2_data_in_loop %>% 
@@ -73,7 +73,7 @@ saveGIF_simple(loop_object = for (sd in seq(3,7,0.2)) {
     geom_line() + 
     geom_line(data = data.frame(x = c(fix_X,fix_X), y = c(0,0.4)),color = 'red') + 
     labs(title = 'Relationship Between P Value & Sample Mean Distribution',
-         subtitle = TeX(paste0('Changing $\\sigma$')),
+         subtitle = TeX(text_subtitle),
          y = 'Frequency') + 
     theme_classic() + 
     
