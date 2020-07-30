@@ -1,13 +1,13 @@
 ---
-title: "Plot8_Code"
+title: "Plot9_Code"
 author: "Jason Moy"
 date: "7/18/2020"
 output: html_document
 ---
 
-# Show how Single Sample t is affected by X-M, SDx, and n. i.e. Can we flash lights when t exceeds the critical value (reject Ho)?
+# Show how Independent Sample t is affected by X-M, SDx, and n. i.e. Can we flash lights when t exceeds the critical value (reject Ho)?
 
-# Progress: 
+# Progress: Still struggling on changing N 
 ```{r setup, include=FALSE}
 #Must changed to the local clone repository path
 clone_repository_path = '/Users/Jasonmoy/Desktop/Hattrup_Lab/Statistics_Animation_Plot' #edit here
@@ -254,7 +254,7 @@ saveGIF_simple(for (n1 in seq(5,20,5)) {
   # Initialited data to construct the distribution 
   # Construct a standard normal distribution 
   pooled_variance = (sd1^2*(n1 - 1) + sd2^2 * (n2 - 1)) / ((n1 - 1) + (n2 - 1))
-  print((sd1^2*(n1 - 1) + sd2^2 * (n2 - 1))/ (n1 + n2 -2))
+
   y1_seq = sgt::dsgt(x1_seq,mu = x1_mean,sigma = pooled_variance)
   x1_distribution_data = as.data.frame(cbind(x1_seq, y1_seq))
  
