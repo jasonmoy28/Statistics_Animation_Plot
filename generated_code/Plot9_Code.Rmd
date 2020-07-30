@@ -5,7 +5,7 @@ date: "7/18/2020"
 output: html_document
 ---
 
-# Show how Independent Sample t is affected by X-M, SDx, and n. i.e. Can we flash lights when t exceeds the critical value (reject Ho)?
+# Show how Independent Samples t is affected by M-M, SD_pooled, and n. Can we flash lights when t exceeds the critical value?
 
 # Progress
 ```{r setup, include=FALSE}
