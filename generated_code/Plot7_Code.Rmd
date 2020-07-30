@@ -284,7 +284,7 @@ saveGIF_simple(for (sd in seq(3.39,7,0.13)) {
   plot2_data_in_loop = as.data.frame(cbind(x, y))
   
   # Created data to fill the area with critical value 
-  x_critical_value = qnorm(p = critical_value_prob,mean = mu,sd = standard_error)
+  x_critical_value = qnorm(p = critical_value_prob/2,mean = mu,sd = standard_error)
   # caculate critical value based on mu and standard error 
   x_crtical_value_seq = seq(x_critical_value,x_low_lim,-0.01)
   y_critical_value = dnorm(x_crtical_value_seq,mean = mu, sd = standard_error)
@@ -361,7 +361,7 @@ saveGIF_simple(for (n in seq(8,4,-.3)) { # mu = 0, sigma = 1, n = 100
   plot2_data_in_loop = as.data.frame(cbind(x, y))
   
  # Created data to fill the area with critical value 
-  x_critical_value = -qnorm(p = critical_value_prob,mean = mu,sd = standard_error)
+  x_critical_value = -qnorm(p = critical_value_prob/2,mean = mu,sd = standard_error)
   # caculate critical value based on mu and standard error 
   x_crtical_value_seq = seq(x_critical_value,x_upper_lim,0.01)
   y_critical_value = dnorm(x_crtical_value_seq,mean = mu, sd = standard_error)
