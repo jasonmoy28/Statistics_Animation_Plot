@@ -29,7 +29,7 @@ IDEAS FOR ANIMATING BASIC STATISTICS:
 
 8. **(COMPLETED)**Show how Single Sample t is affected by X-M, SDx, and n. i.e. Can we flash lights when t exceeds the critical value (reject Ho)?
 
-9. Show how Independent Samples t is affected by M-M, SD_pooled, and n. Can we flash lights when t exceeds the critical value?
+9. **(COMPLETED)**Show how Independent Samples t is affected by M-M, SD_pooled, and n. Can we flash lights when t exceeds the critical value?
 
 10. Show how Levene’s Test is affected with SD_1 differs from SD_2.
 
