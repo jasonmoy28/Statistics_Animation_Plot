@@ -9,14 +9,14 @@ output: html_document
 # Progress: Completed
 
 ```{r setup, include=FALSE}
-clone_repository_path = '/Users/Jasonmoy/Desktop/Hattrup_Lab/Statistics_Animation_Plot' #edit here
+clone_repository_path = "C:/Users/Jason Moy/OneDrive - UC San Diego/Jason's PC Desktop/Statistics_Animation_Plot" #edit here
 source(paste(clone_repository_path,'/saveGIF_simple_git_ver.R',sep = '')) # run the saveGIF_simple function 
 ```
 
 ```{r Positive skew plot,echo = F,comment = NA}
 #Positive skew
 x = seq(0,30,length = 1000)
-saveGIF_simple(for (df in seq(15,3,-.5)) {
+saveGIF_simple(for (df in seq(15,3,-.01)) {
   y = dchisq(x,df = df)
   data = as.data.frame(cbind(x,y))
   mode = df - 2
@@ -54,7 +54,7 @@ saveGIF_simple(for (df in seq(15,3,-.5)) {
   
   print(plot(plot_))},
   movie_name = 'Plot1_positive_skew.gif', clone_repository_path = clone_repository_path, 
-  loop_speed = .2)
+  loop_speed = .05)
 ```
 
 ```{r negative skew plot,echo = F,comment = NA}
