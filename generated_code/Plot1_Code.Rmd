@@ -16,7 +16,7 @@ source(paste(clone_repository_path,'/saveGIF_simple_git_ver.R',sep = '')) # run 
 ```{r Positive skew plot,echo = F,comment = NA}
 #Positive skew
 x = seq(0,30,length = 1000)
-saveGIF_simple(for (df in seq(15,3,-.01)) {
+saveGIF_simple(for (df in seq(15,3,-.1)) {
   y = dchisq(x,df = df)
   data = as.data.frame(cbind(x,y))
   mode = df - 2
@@ -49,7 +49,7 @@ saveGIF_simple(for (df in seq(15,3,-.01)) {
     annotate(label = 'mean', x = 18.5 + 8.4, y = .2,geom = 'text')  + 
     
     # remove x-tick label, y-tick label 
-    theme(axis.text = element_blank(),
+    theme(axis.text = element_blank(), 
           axis.ticks = element_blank())
   
   print(plot(plot_))},
@@ -60,7 +60,7 @@ saveGIF_simple(for (df in seq(15,3,-.01)) {
 ```{r negative skew plot,echo = F,comment = NA}
 #Negative skew
 x = seq(0,30,length = 1000)
-saveGIF_simple(for (df in seq(15,3,-.5)) {
+saveGIF_simple(for (df in seq(15,3,-.1)) {
   x = seq(0,30,length = 1000)
   y = dchisq(x,df = df)
   x = -x
@@ -99,5 +99,5 @@ saveGIF_simple(for (df in seq(15,3,-.5)) {
           axis.ticks = element_blank())
   print(plot(plot_))},
   movie_name = 'Plot1_negative_skew.gif', clone_repository_path = clone_repository_path,
-  loop_speed = 0.2)
+  loop_speed = 0.05)
 ```
