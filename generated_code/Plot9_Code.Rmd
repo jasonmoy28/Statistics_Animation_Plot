@@ -7,7 +7,7 @@ output: html_document
 
 # Show how Independent Sample t is affected by X-M, SDx, and n. i.e. Can we flash lights when t exceeds the critical value (reject Ho)?
 
-# Progress: Still struggling on changing N 
+# Progress
 ```{r setup, include=FALSE}
 #Must changed to the local clone repository path
 clone_repository_path = '/Users/Jasonmoy/Desktop/Hattrup_Lab/Statistics_Animation_Plot' #edit here
@@ -181,15 +181,18 @@ text_y_position = 0.75
 Output_gif_name = 'Plot9_moving_pooled_variance.gif'
 
 # Start function 
-saveGIF_simple(for (pooled_variance in seq(0.5,1,0.05)) {
-  sd1 = sqrt(((pooled_variance *(n1 + n2 - 2)) - (n2 - 1)*sd2^2) / (n1 - 1))
-
+saveGIF_simple(for (pooled_variance in seq(1.5,7,0.1)) {
+  
   # Initialited data to construct the distribution 
   # Construct a standard normal distribution 
-  y1_seq = sgt::dsgt(x1_seq,mu = x1_mean,sigma = sd1)
+  standard_error = sqrt((pooled_variance/n1) + (pooled_variance / n2))
+  y1_seq = sgt::dsgt(x1_seq,mu = x1_mean,sigma = standard_error)
   x1_distribution_data = as.data.frame(cbind(x1_seq, y1_seq))
+  y2_seq = sgt::dsgt(x2_seq, mu = x2_mean,sigma = standard_error)
+  x2_distribution_data = as.data.frame(cbind(x2_seq, y2_seq))
   
-  # Caculated t_score & p_value 
+
+# Caculated t_score & p_value 
   t_score = (x1_mean - x2_mean)/sqrt((pooled_variance/n1) + (pooled_variance / n2))
   text_t_score = 
     paste('$\\t =  \\frac{',round_simple(x1_mean,2), ' - ', round_simple(x2_mean,2),'}{\\sqrt{\\frac{',pooled_variance,'^2}{',n1,'} + \\frac{',pooled_variance,'^2}{',n2,'}}}
@@ -215,6 +218,7 @@ saveGIF_simple(for (pooled_variance in seq(0.5,1,0.05)) {
     },
   movie_name = Output_gif_name, 
   clone_repository_path = clone_repository_path,
+  loop_speed = 0.05,
   loop_number = 1)
 ```
 
