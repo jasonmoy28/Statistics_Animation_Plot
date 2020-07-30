@@ -1,0 +1,289 @@
+---
+title: "Plot8_Code"
+author: "Jason Moy"
+date: "7/18/2020"
+output: html_document
+---
+
+# Show how Single Sample t is affected by X-M, SDx, and n. i.e. Can we flash lights when t exceeds the critical value (reject Ho)?
+
+# Progress: 
+```{r setup, include=FALSE}
+#Must changed to the local clone repository path
+clone_repository_path = '/Users/Jasonmoy/Desktop/Hattrup_Lab/Statistics_Animation_Plot' #edit here
+source(paste(clone_repository_path,'/saveGIF_simple_git_ver.R',sep = '')) # run the saveGIF_simple function 
+library(sgt)
+```
+
+
+# Moving `X1 - X2` 
+## Moving `X1 - X2` from negative to positive 
+```{r Moving `X1 - X2` from negative to positive ,echo = F,comment = NA}
+# Set parameter 
+n1= 10
+n2 = 10 
+sd1 = 0.8
+sd2 = 0.8
+
+x2_mean = 0
+x2_low_Lim = x2_mean - 3
+x2_upper_lim = x2_mean + 3
+
+x2_seq = seq(x2_low_Lim,x2_upper_lim, 0.01)
+y2_seq = sgt::dsgt(x2_seq, mu = x2_mean,sigma = sd2)
+x2_distribution_data = as.data.frame(cbind(x2_seq, y2_seq))
+
+
+
+# Set graphing parameter
+text_x_position = -4.5
+text_y_position = 0.75
+
+#Output name
+Output_gif_name = 'Plot9_moving_dist_mean_negative_to_positive.gif'
+
+# Start function 
+saveGIF_simple(for (x1_mean in seq(-4,0,0.25)) {
+  
+  x1_low_lim = x1_mean - 3 
+  x1_upper_lim = x1_mean + 3
+  
+  # Initialited data to construct the distribution 
+  # Construct a standard normal distribution 
+  x1_seq = seq(x1_low_lim,x1_upper_lim,0.01)
+  y1_seq = sgt::dsgt(x1_seq,mu = x1_mean,sigma = 0.8)
+  x1_distribution_data = as.data.frame(cbind(x1_seq, y1_seq))
+  
+  
+  # Caculated t_score & p_value 
+  pooled_variance = (sd1^2*(n1 - 1) + sd2^2 * (n2 - 1)) / ((n1 - 1) + (n2 - 1))
+  t_score = (x1_mean - x2_mean)/sqrt((pooled_variance/n1) + (pooled_variance / n2))
+  text_t_score = 
+    paste('$\\t =  \\frac{',round_simple(x1_mean,2), ' - ', round_simple(x2_mean,2),'}{\\sqrt{\\frac{',pooled_variance,'^2}{',n1,'} + \\frac{',pooled_variance,'^2}{',n2,'}}}
+          = ', round_simple(t_score,2))
+  
+  text_subtitle = 'Changing $\\bar{X_1} - \\bar{X_2}$'
+  text_title = 'Independent t-test'
+  
+  plot_ =
+    ggplot() + 
+    geom_line(data = x1_distribution_data, aes(x = x1_seq, y = y1_seq)) + 
+    geom_line(data = x2_distribution_data, aes(x = x2_seq, y = y2_seq)) +
+    labs(title = text_title, 
+         subtitle = TeX(text_subtitle),
+         y = 'Frequency',
+         x = 'X') + 
+    theme_classic() + 
+    
+    annotate(geom = 'text',x = text_x_position, y = text_y_position, label = TeX(text_t_score)) + 
+    lims(y = c(0,0.8),
+         x = c(-6,6))
+  print(plot(plot_))
+    },
+  movie_name = Output_gif_name, 
+  clone_repository_path = clone_repository_path,
+  loop_number = 1)
+```
+
+```{r Moving `X1 - X2` from negative to positive ,echo = F,comment = NA}
+# Set parameter 
+n1= 10
+n2 = 10 
+sd1 = 0.8
+sd2 = 0.8
+
+x2_mean = 0
+x2_low_Lim = x2_mean - 3
+x2_upper_lim = x2_mean + 3
+
+x2_seq = seq(x2_low_Lim,x2_upper_lim, 0.01)
+y2_seq = sgt::dsgt(x2_seq, mu = x2_mean,sigma = sd2)
+x2_distribution_data = as.data.frame(cbind(x2_seq, y2_seq))
+
+
+
+# Set graphing parameter
+text_x_position = -4.5
+text_y_position = 0.75
+
+#Output name
+Output_gif_name = 'Plot9_moving_dist_mean_positive_to_negative.gif'
+
+# Start function 
+saveGIF_simple(for (x1_mean in seq(4,0,-0.25)) {
+  
+  x1_low_lim = x1_mean - 3 
+  x1_upper_lim = x1_mean + 3
+  
+  # Initialited data to construct the distribution 
+  # Construct a standard normal distribution 
+  x1_seq = seq(x1_low_lim,x1_upper_lim,0.01)
+  y1_seq = sgt::dsgt(x1_seq,mu = x1_mean,sigma = sd1)
+  x1_distribution_data = as.data.frame(cbind(x1_seq, y1_seq))
+  
+  
+  # Caculated t_score & p_value 
+  pooled_variance = (sd1^2*(n1 - 1) + sd2^2 * (n2 - 1)) / ((n1 - 1) + (n2 - 1))
+  t_score = (x1_mean - x2_mean)/sqrt((pooled_variance/n1) + (pooled_variance / n2))
+  text_t_score = 
+    paste('$\\t =  \\frac{',round_simple(x1_mean,2), ' - ', round_simple(x2_mean,2),'}{\\sqrt{\\frac{',pooled_variance,'^2}{',n1,'} + \\frac{',pooled_variance,'^2}{',n2,'}}}
+          = ', round_simple(t_score,2))
+  
+  text_subtitle = 'Changing $\\bar{X_1} - \\bar{X_2}$'
+  text_title = 'Independent t-test'
+  
+  plot_ =
+    ggplot() + 
+    geom_line(data = x1_distribution_data, aes(x = x1_seq, y = y1_seq)) + 
+    geom_line(data = x2_distribution_data, aes(x = x2_seq, y = y2_seq)) +
+    labs(title = text_title, 
+         subtitle = TeX(text_subtitle),
+         y = 'Frequency',
+         x = 'X') + 
+    theme_classic() + 
+    
+    annotate(geom = 'text',x = text_x_position, y = text_y_position, label = TeX(text_t_score)) + 
+    lims(y = c(0,0.8),
+         x = c(-6,6))
+  print(plot(plot_))
+    },
+  movie_name = Output_gif_name, 
+  clone_repository_path = clone_repository_path,
+  loop_number = 1)
+```
+## Moving `pooled variance`
+```{r Moving `pooled variance`, echo=TRUE, comment=F}
+# Set parameters
+n1= 10
+n2 = 10 
+sd2 = 0.8
+
+# X2
+x2_mean = 0
+x2_low_Lim = x2_mean - 3
+x2_upper_lim = x2_mean + 3
+x2_seq = seq(x2_low_Lim,x2_upper_lim, 0.01)
+y2_seq = sgt::dsgt(x2_seq, mu = x2_mean,sigma = sd2)
+x2_distribution_data = as.data.frame(cbind(x2_seq, y2_seq))
+
+# X1
+x1_mean = 3
+x1_low_lim = x1_mean - 3 
+x1_upper_lim = x1_mean + 3
+x1_seq = seq(x1_low_lim,x1_upper_lim,0.01)
+
+
+# Set graphing parameter
+text_x_position = -4.5
+text_y_position = 0.75
+
+#Output name
+Output_gif_name = 'Plot9_moving_pooled_variance.gif'
+
+# Start function 
+saveGIF_simple(for (pooled_variance in seq(0.5,1,0.05)) {
+  sd1 = sqrt(((pooled_variance *(n1 + n2 - 2)) - (n2 - 1)*sd2^2) / (n1 - 1))
+
+  # Initialited data to construct the distribution 
+  # Construct a standard normal distribution 
+  y1_seq = sgt::dsgt(x1_seq,mu = x1_mean,sigma = sd1)
+  x1_distribution_data = as.data.frame(cbind(x1_seq, y1_seq))
+  
+  # Caculated t_score & p_value 
+  t_score = (x1_mean - x2_mean)/sqrt((pooled_variance/n1) + (pooled_variance / n2))
+  text_t_score = 
+    paste('$\\t =  \\frac{',round_simple(x1_mean,2), ' - ', round_simple(x2_mean,2),'}{\\sqrt{\\frac{',pooled_variance,'^2}{',n1,'} + \\frac{',pooled_variance,'^2}{',n2,'}}}
+          = ', round_simple(t_score,2))
+  
+  text_subtitle = 'Changing $s^2_{pooled}$'
+  text_title = 'Independent t-test'
+  
+  plot_ =
+    ggplot() + 
+    geom_line(data = x1_distribution_data, aes(x = x1_seq, y = y1_seq)) + 
+    geom_line(data = x2_distribution_data, aes(x = x2_seq, y = y2_seq)) +
+    labs(title = text_title, 
+         subtitle = TeX(text_subtitle),
+         y = 'Frequency',
+         x = 'X') + 
+    theme_classic() + 
+    
+    annotate(geom = 'text',x = text_x_position, y = text_y_position, label = TeX(text_t_score)) + 
+    lims(y = c(0,0.8),
+         x = c(-6,6))
+  print(plot(plot_))
+    },
+  movie_name = Output_gif_name, 
+  clone_repository_path = clone_repository_path,
+  loop_number = 1)
+```
+
+## Moving `sample size`
+```{r Moving `sample size`, echo=TRUE, comment=F}
+# Set parameters
+n2 = 10 
+sd1 = 0.8
+sd2 = 0.8
+
+# X2
+x2_mean = 0
+x2_low_Lim = x2_mean - 3
+x2_upper_lim = x2_mean + 3
+x2_seq = seq(x2_low_Lim,x2_upper_lim, 0.01)
+y2_seq = sgt::dsgt(x2_seq, mu = x2_mean,sigma = sd2)
+x2_distribution_data = as.data.frame(cbind(x2_seq, y2_seq))
+
+# X1
+x1_mean = 3
+x1_low_lim = x1_mean - 3 
+x1_upper_lim = x1_mean + 3
+x1_seq = seq(x1_low_lim,x1_upper_lim,0.01)
+
+
+# Set graphing parameter
+text_x_position = -4.5
+text_y_position = 0.75
+
+#Output name
+Output_gif_name = 'Plot9_moving_pooled_variance.gif'
+
+# Start function 
+saveGIF_simple(for (n1 in seq(5,20,5)) {
+  
+  
+  # Initialited data to construct the distribution 
+  # Construct a standard normal distribution 
+  pooled_variance = (sd1^2*(n1 - 1) + sd2^2 * (n2 - 1)) / ((n1 - 1) + (n2 - 1))
+  print((sd1^2*(n1 - 1) + sd2^2 * (n2 - 1))/ (n1 + n2 -2))
+  y1_seq = sgt::dsgt(x1_seq,mu = x1_mean,sigma = pooled_variance)
+  x1_distribution_data = as.data.frame(cbind(x1_seq, y1_seq))
+ 
+  # Caculated t_score & p_value 
+  t_score = (x1_mean - x2_mean)/sqrt((pooled_variance/n1) + (pooled_variance / n2))
+  text_t_score = 
+    paste('$\\t =  \\frac{',round_simple(x1_mean,2), ' - ', round_simple(x2_mean,2),'}{\\sqrt{\\frac{',pooled_variance,'^2}{',n1,'} + \\frac{',pooled_variance,'^2}{',n2,'}}}
+          = ', round_simple(t_score,2))
+  
+  text_subtitle = 'Changing N'
+  text_title = 'Independent t-test'
+  
+  plot_ =
+    ggplot() + 
+    geom_line(data = x1_distribution_data, aes(x = x1_seq, y = y1_seq)) + 
+    geom_line(data = x2_distribution_data, aes(x = x2_seq, y = y2_seq)) +
+    labs(title = text_title, 
+         subtitle = TeX(text_subtitle),
+         y = 'Frequency',
+         x = 'X') + 
+    theme_classic() + 
+    
+    annotate(geom = 'text',x = text_x_position, y = text_y_position, label = TeX(text_t_score)) + 
+    lims(y = c(0,0.8),
+         x = c(-6,6))
+  print(plot(plot_))
+    },
+  movie_name = Output_gif_name, 
+  clone_repository_path = clone_repository_path,
+  loop_number = 1)
+```
+
