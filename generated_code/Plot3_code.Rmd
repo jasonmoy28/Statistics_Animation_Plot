@@ -9,17 +9,17 @@ output: html_document
 # Prorgess: Completed
 ```{r setup, include=FALSE}
 #Must changed to the local clone repository path
-clone_repository_path = '/Users/Jasonmoy/Desktop/Hattrup_Lab/Statistics_Animation_Plot' #edit here
+clone_repository_path = "C:/Users/Jason Moy/OneDrive - UC San Diego/Jason's PC Desktop/Statistics_Animation_Plot" #edit here
 source(paste(clone_repository_path,'/saveGIF_simple_git_ver.R',sep = '')) # run the saveGIF_simple function 
 ```
 
 ```{r Z score with moving X,echo = F,comment = NA}
 x = seq(0,10)
-saveGIF_simple(for (moving_x in seq(-3.5,3.5,0.2)) {
+saveGIF_simple(for (moving_x in seq(-3.5,3.5,0.05)) {
   x = seq(-3.5,3.5,0.1)
   y = dnorm(x,mean = 0,sd = 1)
   plot2_data_in_loop = as.data.frame(cbind(x, y))
-  text = paste0('$\\Z =  \\frac{',round_simple(moving_x,2),' -  0}{1}$ = ', moving_x)
+  text = paste0('$\\Z =  \\frac{',round_simple(moving_x,2),' -  0}{1}$ = ', round_simple(moving_x,2))
   plot_ = plot2_data_in_loop %>% 
     ggplot(data =.,aes(x = x,y = y)) + 
     geom_line() + 
@@ -33,14 +33,14 @@ saveGIF_simple(for (moving_x in seq(-3.5,3.5,0.2)) {
   print(plot(plot_))},
   movie_name = 'Plot3_moving_X_with_z_score.gif', 
   clone_repository_path = clone_repository_path,
-  loop_speed = 0.4, loop_number = 1)
+  loop_speed = 0.01, loop_number = 1)
 ```
 
 
 ```{r Z score with changing sd,echo = F,comment = NA}
 fix_X = 1.5
 x = seq(0,10)
-saveGIF_simple(loop_object = for (sd in seq(1,5,0.2)) {
+saveGIF_simple(loop_object = for (sd in seq(1,5,0.05)) {
   x = seq(-7,7,0.1)
   y = dnorm(x,mean = 0,sd = sd)
   plot2_data_in_loop = as.data.frame(cbind(x, y))
@@ -58,5 +58,5 @@ saveGIF_simple(loop_object = for (sd in seq(1,5,0.2)) {
   print(plot(plot_))},
   movie_name = 'Plot3_moving_sd_with_z_score.gif', 
   clone_repository_path = clone_repository_path,
-  loop_speed = 0.4, loop_number = 1)
+  loop_speed = 0.05, loop_number = 1)
 ```
