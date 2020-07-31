@@ -43,7 +43,7 @@ text_y_position = 0.75
 Output_gif_name = 'Plot9_moving_dist_mean_negative_to_positive.gif'
 
 # Start function 
-saveGIF_simple(for (x1_mean in seq(-4,0,0.25)) {
+saveGIF_simple(for (x1_mean in seq(-4,0,length.out = 80)) {
   
   x1_low_lim = x1_mean - 3 
   x1_upper_lim = x1_mean + 3
@@ -81,7 +81,7 @@ saveGIF_simple(for (x1_mean in seq(-4,0,0.25)) {
   print(plot(plot_))
     },
   movie_name = Output_gif_name, 
-  clone_repository_path = clone_repository_path,
+  clone_repository_path = clone_repository_path,loop_speed = 0.01,
   loop_number = 1)
 ```
 
@@ -110,7 +110,7 @@ text_y_position = 0.75
 Output_gif_name = 'Plot9_moving_dist_mean_positive_to_negative.gif'
 
 # Start function 
-saveGIF_simple(for (x1_mean in seq(4,0,-0.25)) {
+saveGIF_simple(for (x1_mean in seq(4,0,length.out = 80)) {
   
   x1_low_lim = x1_mean - 3 
   x1_upper_lim = x1_mean + 3
@@ -148,7 +148,7 @@ saveGIF_simple(for (x1_mean in seq(4,0,-0.25)) {
   print(plot(plot_))
     },
   movie_name = Output_gif_name, 
-  clone_repository_path = clone_repository_path,
+  clone_repository_path = clone_repository_path,loop_speed = 0.01, 
   loop_number = 1)
 ```
 ## Moving `pooled variance`
