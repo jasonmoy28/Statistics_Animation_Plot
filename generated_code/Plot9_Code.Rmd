@@ -181,7 +181,7 @@ text_y_position = 0.75
 Output_gif_name = 'Plot9_moving_pooled_variance.gif'
 
 # Start function 
-saveGIF_simple(for (pooled_variance in seq(1.5,7,0.1)) {
+saveGIF_simple(for (pooled_variance in seq(1.5,7,length.out = 80)) {
   
   # Initialited data to construct the distribution 
   # Construct a standard normal distribution 
@@ -218,7 +218,7 @@ saveGIF_simple(for (pooled_variance in seq(1.5,7,0.1)) {
     },
   movie_name = Output_gif_name, 
   clone_repository_path = clone_repository_path,
-  loop_speed = 0.05,
+  loop_speed = 0.01,
   loop_number = 1)
 ```
 
@@ -252,7 +252,7 @@ text_y_position = 0.75
 Output_gif_name = 'Plot9_moving_pooled_variance.gif'
 
 # Start function 
-saveGIF_simple(for (n1 in seq(5,20,5)) {
+saveGIF_simple(for (n1 in seq(5,20,length.out = 80)) {
   
   
   # Initialited data to construct the distribution 
@@ -288,6 +288,7 @@ saveGIF_simple(for (n1 in seq(5,20,5)) {
     },
   movie_name = Output_gif_name, 
   clone_repository_path = clone_repository_path,
+  loop_speed = 0.01,
   loop_number = 1)
 ```
 
