@@ -19,7 +19,7 @@ library(sgt)
 # Moving `X1 - X2` 
 ## Moving `X1 - X2` from negative to positive 
 ```{r Moving `X1 - X2` from negative to positive ,echo = F,comment = NA}
-# Set parameter 
+# Set parameter
 n1= 10
 n2 = 10 
 sd1 = 0.8
@@ -148,7 +148,8 @@ saveGIF_simple(for (x1_mean in seq(4,0,length.out = 80)) {
   print(plot(plot_))
     },
   movie_name = Output_gif_name, 
-  clone_repository_path = clone_repository_path,loop_speed = 0.01, 
+  clone_repository_path = clone_repository_path,
+  loop_speed = 0.01, 
   loop_number = 1)
 ```
 ## Moving `pooled variance`
@@ -195,7 +196,7 @@ saveGIF_simple(for (pooled_variance in seq(1.5,7,length.out = 80)) {
 # Caculated t_score & p_value 
   t_score = (x1_mean - x2_mean)/sqrt((pooled_variance/n1) + (pooled_variance / n2))
   text_t_score = 
-    paste('$\\t =  \\frac{',round_simple(x1_mean,2), ' - ', round_simple(x2_mean,2),'}{\\sqrt{\\frac{',pooled_variance,'^2}{',n1,'} + \\frac{',pooled_variance,'^2}{',n2,'}}}
+    paste('$\\t =  \\frac{',round_simple(x1_mean,2), ' - ', round_simple(x2_mean,2),'}{\\sqrt{\\frac{',round_simple(pooled_variance,2),'^2}{',n1,'} + \\frac{',round_simple(pooled_variance,2),'^2}{',n2,'}}}
           = ', round_simple(t_score,2))
   
   text_subtitle = 'Changing $s^2_{pooled}$'
@@ -211,7 +212,7 @@ saveGIF_simple(for (pooled_variance in seq(1.5,7,length.out = 80)) {
          x = 'X') + 
     theme_classic() + 
     
-    annotate(geom = 'text',x = text_x_position, y = text_y_position, label = TeX(text_t_score)) + 
+    annotate(geom = 'text',x = text_x_position, y = text_y_position, label = TeX(text_t_score[1])) + 
     lims(y = c(0,0.8),
          x = c(-6,6))
   print(plot(plot_))
