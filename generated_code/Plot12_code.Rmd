@@ -1,0 +1,116 @@
+---
+title: "Plot11_Code"
+author: "Jason Moy"
+date: "7/30/2020"
+output: html_document
+---
+
+# Show how ONEWAY ANOVA is affected by (a) SSB, (b) dfB, (c) SSW, and (d) dfW. 
+
+# Progress: Don't understand how to move dfB, SSW, and dfW 
+```{r setup, include=FALSE}
+#Must changed to the local clone repository path
+clone_repository_path = '/Users/Jasonmoy/Desktop/Hattrup_Lab/Statistics_Animation_Plot' #edit here
+source(paste(clone_repository_path,'/saveGIF_simple_git_ver.R',sep = '')) # run the saveGIF_simple function 
+```
+
+
+# Moving `SSB` 
+## Moving `SSB` negative to positive / one distribution move 
+```{r Moving `SSB` from negative to positive ,echo = F,comment = NA}
+# Set mean, sample size and standard deviation 
+n1= 10
+n2 = 10 
+n3 = 10 
+
+se1 = 1
+se2 = 1
+se3 = 1
+
+x1_mean = 0
+x2_mean = 3
+
+
+# Set x_seq limit 
+x1_low_Lim = x1_mean - 3
+x1_upper_lim = x1_mean + 3
+x2_low_Lim = x2_mean - 3
+x2_upper_lim = x2_mean + 3
+
+
+# Create x_seq 
+x1_seq = seq(x1_low_Lim,x1_upper_lim, by = 0.01)
+x2_seq = seq(x2_low_Lim,x2_upper_lim, by = 0.01)
+
+
+# Create y_seq 
+y1_seq = dnorm(x1_seq, mean = x1_mean,sd = se1)
+y2_seq = dnorm(x2_seq, mean = x2_mean,sd = se2)
+
+# Create distribution data 
+x1_distribution_data = as.data.frame(cbind(x1_seq, y1_seq))
+x2_distribution_data = as.data.frame(cbind(x2_seq, y2_seq))
+
+
+# Set graphing parameter
+text_x_position = -6.5
+text_y_position = 0.75
+
+#Output name
+Output_gif_name = 'Plot12_change_SSB_one_dist_neg_to_pos_80.gif'
+
+# Start function 
+saveGIF_simple(for (x3_mean in seq(-8,0,length.out = 20)) {
+  
+  x3_low_lim = x3_mean - 3
+  x3_upper_lim = x3_mean + 3
+  
+  # Initialited data to construct the distribution 
+  # Construct a standard normal distribution 
+  x3_seq = seq(x3_low_lim,x3_upper_lim,0.01)
+  y3_seq = dnorm(x = x3_seq,mean = x3_mean,sd = se3)
+  x3_distribution_data = as.data.frame(cbind(x3_seq, y3_seq))
+  
+  
+  # Caculated SSB & f score
+  in_loop_data = data.frame(name = rep(x = c('x1','x2','x3'), each = length(y1_seq)), data = c(x1_seq,x2_seq,x3_seq))
+  reg_result = in_loop_data %>% lm(data = ., formula = data ~ name)
+  anova_result = anova(reg_result)
+  SS_treatment = anova_result$`Sum Sq`[1]
+  SS_error = anova_result$`Sum Sq`[2]
+  F_value =  anova_result$`F value`
+  df_treatment = anova_result$Df[1]
+  df_error = anova_result$Df[2]
+  
+  text_f_value = paste(
+  '$F = \\frac{',round_simple(SS_treatment,2),'}{',round_simple(df_treatment,2),'}  /  \\frac{',round_simple(SS_error,2),'}{',round_simple(df_error,2),'}$ =', round_simple(F_value,2))
+  
+  text_subtitle = 'Changing SSB'
+  text_title = 'Oneway ANOVA'
+  
+  plot_ =
+    ggplot() + 
+    geom_line(data = x1_distribution_data, aes(x = x1_seq, y = y1_seq)) + 
+    geom_line(data = x2_distribution_data, aes(x = x2_seq, y = y2_seq)) +
+    geom_line(data = x3_distribution_data, aes(x = x3_seq, y = y3_seq)) + 
+    labs(title = text_title, 
+         subtitle = TeX(text_subtitle),
+         y = 'Frequency',
+         x = 'X') + 
+    
+    theme_classic() + 
+    lims(y = c(0,0.8),
+         x = c(-10,10)) + 
+    annotate(geom = 'text',x = text_x_position, y = text_y_position, label = TeX(text_f_value[1]))
+  print(plot(plot_))
+    },
+  movie_name = Output_gif_name, 
+  clone_repository_path = clone_repository_path,
+  loop_speed = 0.001,
+  loop_number = 1)
+```
+
+# Moving dfB 
+```{r moving dfB,echo = F,comment = NA}
+
+```
