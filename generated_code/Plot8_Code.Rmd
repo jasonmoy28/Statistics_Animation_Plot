@@ -54,7 +54,7 @@ saveGIF_simple(for (moving_x in seq(0,3,0.25)) {
   text_p_value = glue('p = {p_value}')
   text_t_score = paste('$\\t =  \\frac{',round_simple(moving_x,2),' -  0}{',sd,'/\\sqrt{',n,'}}$ = ', round_simple(t_score,2))
   text_subtitle = paste('Changing X - $\\mu$')
-  text_title = 'Relationship Between t score & Sampling Mean Distribution'
+  text_title = 'Single Sample T-test'
   
   # Created plot 
   if (p_value > critical_value_prob) { # if_else statment to show red area when fix_X exceeded critical boundary (i.e. 1.96 t_score). The else chunk code is same as the code in the if chunk except added a line of code for filling the area beyond critical value with red  
@@ -137,7 +137,7 @@ saveGIF_simple(for (moving_x in seq(0,-3,-0.25)) {
   text_p_value = glue('p = {p_value}')
   text_t_score = paste('$\\t =  \\frac{',round_simple(moving_x,2),' -  0}{',sd,'/\\sqrt{',n,'}}$ = ', round_simple(t_score,2))
   text_subtitle = paste('Changing X - $\\mu$')
-  text_title = 'Relationship Between t score & Sampling Mean Distribution'
+  text_title = 'Single Sample T-test'
   
   # Created plot 
   if (p_value > critical_value_prob) { # if_else statment to show red area when fix_X exceeded critical boundary (i.e. 1.96 t_score). The else chunk code is same as the code in the if chunk except added a line of code for filling the area beyond critical value with red  
@@ -230,7 +230,7 @@ saveGIF_simple(for (sd in seq(3.39,7,0.05)) {
     ggplot(data =.,aes(x = x,y = y)) + 
     geom_line() + 
     geom_line(data = data.frame(x = c(fix_X,fix_X), y = c(0,current_x_upper_y_lim)),color = 'blue') + 
-    labs(title = 'Relationship Between t Score & Sample Mean Distribution',
+    labs(title = 'Single Sample T-test',
          subtitle = TeX(text_subtitle),
          y = 'Frequency') + 
     theme_classic() + 
@@ -245,7 +245,7 @@ saveGIF_simple(for (sd in seq(3.39,7,0.05)) {
      # Added critical line: used 1.96 as X since this is a standard normal distribution
     geom_area(data = critical_value_data, aes(x = x_crtical_value_seq, y = y_critical_value),fill = 'red') + 
     geom_line(data = data.frame(x = c(fix_X,fix_X), y = c(0,current_x_upper_y_lim)),color = 'blue') + 
-    labs(title = 'Relationship Between t Score & Sample Mean Distribution',
+    labs(title = 'Single Sample T-test',
          subtitle = TeX(text_subtitle),
          y = 'Frequency') + 
     theme_classic() + 
@@ -305,7 +305,7 @@ saveGIF_simple(for (sd in seq(3.39,7,0.13)) {
     ggplot(data =.,aes(x = x,y = y)) + 
     geom_line() + 
     geom_line(data = data.frame(x = c(fix_X,fix_X), y = c(0,current_x_upper_y_lim)),color = 'blue') + 
-    labs(title = 'Relationship Between t Score & Sample Mean Distribution',
+    labs(title = 'Single Sample T-test',
          subtitle = TeX(text_subtitle),
          y = 'Frequency') + 
     theme_classic() + 
@@ -320,7 +320,7 @@ saveGIF_simple(for (sd in seq(3.39,7,0.13)) {
      # Added critical line: used 1.96 as X since this is a standard normal distribution
     geom_area(data = critical_value_data, aes(x = x_crtical_value_seq, y = y_critical_value),fill = 'red') + 
     geom_line(data = data.frame(x = c(fix_X,fix_X), y = c(0,current_x_upper_y_lim)),color = 'blue') + 
-    labs(title = 'Relationship Between t Score & Sample Mean Distribution',
+    labs(title = 'Single Sample T-test',
          subtitle = TeX(text_subtitle),
          y = 'Frequency') + 
     theme_classic() + 
@@ -383,7 +383,7 @@ saveGIF_simple(for (n in seq(8,4,-0.3)) {
     ggplot(data =.,aes(x = x,y = y)) + 
     geom_line() + 
     geom_line(data = data.frame(x = c(fix_X,fix_X), y = c(0,current_x_upper_y_lim)),color = 'blue') + 
-    labs(title = 'Relationship Between t Score & Sample Mean Distribution',
+    labs(title = 'Single Sample T-test',
          subtitle = TeX(text_subtitle),
          y = 'Frequency') + 
     theme_classic() + 
@@ -398,7 +398,7 @@ saveGIF_simple(for (n in seq(8,4,-0.3)) {
      # Added critical line: used 1.96 as X since this is a standard normal distribution
     geom_area(data = critical_value_data, aes(x = x_crtical_value_seq, y = y_critical_value),fill = 'red') + 
     geom_line(data = data.frame(x = c(fix_X,fix_X), y = c(0,current_x_upper_y_lim)),color = 'blue') + 
-    labs(title = 'Relationship Between t Score & Sample Mean Distribution',
+    labs(title = 'Single Sample T-test',
          subtitle = TeX(text_subtitle),
          y = 'Frequency') + 
     theme_classic() + 
@@ -459,7 +459,7 @@ saveGIF_simple(for (n in seq(8,4,-0.3)) {
     ggplot(data =.,aes(x = x,y = y)) + 
     geom_line() + 
     geom_line(data = data.frame(x = c(fix_X,fix_X), y = c(0,current_x_upper_y_lim)),color = 'blue') + 
-    labs(title = 'Relationship Between t Score & Sample Mean Distribution',
+    labs(title = 'Single Sample T-test',
          subtitle = TeX(text_subtitle),
          y = 'Frequency') + 
     theme_classic() + 
@@ -474,7 +474,7 @@ saveGIF_simple(for (n in seq(8,4,-0.3)) {
      # Added critical line: used 1.96 as X since this is a standard normal distribution
     geom_area(data = critical_value_data, aes(x = x_crtical_value_seq, y = y_critical_value),fill = 'red') + 
     geom_line(data = data.frame(x = c(fix_X,fix_X), y = c(0,current_x_upper_y_lim)),color = 'blue') + 
-    labs(title = 'Relationship Between t Score & Sample Mean Distribution',
+    labs(title = 'Single Sample T-test',
          subtitle = TeX(text_subtitle),
          y = 'Frequency') + 
     theme_classic() + 
