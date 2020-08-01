@@ -1,0 +1,93 @@
+---
+title: "Plot10_Code"
+author: "Jason Moy"
+date: "7/31/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+#Must changed to the local clone repository path
+clone_repository_path = '/Users/Jasonmoy/Desktop/Hattrup_Lab/Statistics_Animation_Plot' #edit here
+source(paste(clone_repository_path,'/saveGIF_simple_git_ver.R',sep = '')) # run the saveGIF_simple function 
+library(sgt)
+```
+
+# Levenee Test 
+```{r Moving `variance`, echo=TRUE, comment=F}
+# Set parameters
+n1= 10
+n2 = 10 
+sd1 = 0.8
+sd2 = 0.8
+
+# X1
+x1_mean = 3
+x1_low_lim = x1_mean - 3 
+x1_upper_lim = x1_mean + 3
+x1_seq = seq(x1_low_lim,x1_upper_lim,0.01)
+
+# X2
+x2_mean = 0
+x2_low_Lim = x2_mean - 3
+x2_upper_lim = x2_mean + 3
+x2_seq = seq(x2_low_Lim,x2_upper_lim, 0.01)
+
+
+# Distribution data 
+
+y1_seq = dnorm(x1_seq,mean = x1_mean,sd = sd1)
+x1_distribution_data = as.data.frame(cbind(x1_seq, y1_seq))
+y2_seq = dnorm(x2_seq, mean = x2_mean,sd = sd2)
+x2_distribution_data = as.data.frame(cbind(x2_seq, y2_seq))
+
+# Set graphing parameter
+text_x_position = -4.5
+text_y_position = 0.75
+
+#Output name
+Output_gif_name = 'Plot10_levene_test.gif'
+
+# Start function 
+saveGIF_simple(for (sd2 in seq(0.8,2,length.out = 80)) {
+  
+  # Initialited data to construct the distribution 
+  # Construct a standard normal distribution 
+  y2_seq = dnorm(x2_seq,mean = x2_mean,sd = sd2)
+  x2_distribution_data = as.data.frame(cbind(x2_seq, y2_seq))
+  
+  # Construct data with the same parameters for the dist to mimic the Levene Test
+  x1_data = data.frame(
+    data = rnorm(n = 50,mean = x1_mean, sd = sd1), name = 'x1')
+  x2_data = data.frame(
+    data = rnorm(n = 50,mean = x2_mean, sd = sd2), name = 'x2')
+  combined_df = rbind(x1_data,x2_data) %>% mutate(name = as.factor(name))
+  
+  results = car::leveneTest(y = combined_df$data,group = combined_df$name,center = 'mean')
+  
+
+# Caculated t_score & p_value 
+  F_value = results$`F value`[1]
+  text_f_value = paste0('Levene F =', round_simple(F_value,2))
+  text_subtitle = 'Changing Standard Deviation$'
+  text_title = 'Levene Test'
+  
+  plot_ =
+    ggplot() + 
+    geom_line(data = x1_distribution_data, aes(x = x1_seq, y = y1_seq)) + 
+    geom_line(data = x2_distribution_data, aes(x = x2_seq, y = y2_seq)) + 
+    labs(title = text_title, 
+         subtitle = TeX(text_subtitle),
+         y = 'Frequency',
+         x = 'X') + 
+    theme_classic() + 
+    
+    annotate(geom = 'text',x = text_x_position, y = text_y_position, label = text_f_value) + 
+    lims(y = c(0,0.8),
+         x = c(-6,6))
+  print(plot(plot_))
+    },
+  movie_name = Output_gif_name, 
+  clone_repository_path = clone_repository_path,
+  loop_speed = 0.01,
+  loop_number = 1)
+```
