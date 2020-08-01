@@ -31,9 +31,9 @@ IDEAS FOR ANIMATING BASIC STATISTICS:
 
 9. **(COMPLETED)**Show how Independent Samples t is affected by M-M, SD_pooled, and n. Can we flash lights when t exceeds the critical value?
 
-10. Show how Levene’s Test is affected with SD_1 differs from SD_2.
+10. **(COMPLETED)**Show how Levene’s Test is affected with SD_1 differs from SD_2.
 
-11. Show how Dependent Samples t is affected by M_D, SD_D, and n.
+11. **(COMPLETED)**Show how Dependent Samples t is affected by M_D, SD_D, and n.
 
 12. **(COMPLETED)**Show how ONEWAY ANOVA is affected by (a) SSB, (b) dfB, (c) SSW, and (d) dfW. 
 
