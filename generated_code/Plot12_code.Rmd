@@ -15,77 +15,192 @@ source(paste(clone_repository_path,'/saveGIF_simple_git_ver.R',sep = '')) # run 
 ```
 
 
-# Moving `SSB` 
-## Moving `SSB` negative to positive / one distribution move 
-```{r Moving `SSB` from negative to positive ,echo = F,comment = NA}
+# Moving `MSB` 
+```{r Moving `MSB` from negative to positive ,echo = F,comment = NA}
 # Set mean, sample size and standard deviation 
-n1= 10
-n2 = 10 
-n3 = 10 
+n = 50
+se = 1
+x1_mean = 0
+
+# Set x_seq limit 
+x1_low_Lim = x1_mean - 3
+x1_upper_lim = x1_mean + 3
+
+# Create x_seq 
+x1_seq = seq(x1_low_Lim,x1_upper_lim, by = 0.01)
+
+# Create y_seq 
+y1_seq = dnorm(x1_seq, mean = x1_mean,sd = se)
+
+# Create distribution data 
+x1_distribution_data = as.data.frame(cbind(x1_seq, y1_seq))
+
+# Set graphing parameter
+text_x_position = -8
+text_y_position = 0.45
+
+#Output name
+Output_gif_name = 'Plot12_changing_MSB.gif'
+
+# Start function 
+saveGIF_simple(for (x3_mean in seq(0,8,length.out = 80)) {
+  
+  # x2_mean is the opposite of x3_mean since x1_mean is at 0 and we are moving symmetrically 
+  x2_mean = -x3_mean
+  
+  x2_low_lim = x2_mean - 3
+  x2_upper_lim = x2_mean + 3
+  x3_low_lim = x3_mean - 3
+  x3_upper_lim = x3_mean + 3
+  
+
+  # Initialited data to construct the distribution 
+  # Construct a standard normal distribution 
+  
+  x2_seq = seq(x2_low_lim,x2_upper_lim, by = 0.01)
+  x3_seq = seq(x3_low_lim,x3_upper_lim,by = 0.01)
+  
+  y2_seq = dnorm(x = x2_seq, mean = x2_mean, sd = se)
+  y3_seq = dnorm(x = x3_seq, mean = x3_mean, sd = se)
+  
+  x2_distribution_data = as.data.frame(cbind(x2_seq, y2_seq))
+  x3_distribution_data = as.data.frame(cbind(x3_seq, y3_seq))
+  
+  # Caculated SSB & f score
+  set.seed(3)
+  x1_data = data.frame(data = rnorm(n,mean = x1_mean,
+                                                 sd = se),name = 'x1')
+  set.seed(3)
+  x2_data = data.frame(data = rnorm(n,mean = x2_mean,
+                                                 sd = se),name = 'x2')
+  set.seed(3)
+  x3_data = data.frame(data = rnorm(n,mean = x3_mean,
+                                                 sd = se),name = 'x3')
+
+  in_loop_data = 
+    rbind(x1_data,x2_data,x3_data)
+
+  
+  reg_result = in_loop_data %>% lm(data = ., formula = data ~ name)
+  anova_result = anova(reg_result)
+  # SS_treatment = anova_result$`Sum Sq`[1]
+  # SS_error = anova_result$`Sum Sq`[2]
+  # df_treatment = anova_result$Df[1]
+  # df_error = anova_result$Df[2]
+  MS_treatment = anova_result$`Mean Sq`[1]
+  MS_error = anova_result$`Mean Sq`[2]
+  F_value = MS_treatment/as.numeric(round_simple(MS_error,0))
+  #F_value =  MS_treatment / se
+  
+  text_f_value = paste('$F = \\frac{',round_simple(MS_treatment,0),'}{',round_simple(MS_error,0),'}$ = ',round_simple(F_value,0))
+  # text_f_value = paste(
+  # '$F = \\frac{',round_simple(SS_treatment,2),'}{',round_simple(df_treatment,2),'}  /  \\frac{',round_simple(SS_error,2),'}{',round_simple(df_error,2),'}$ =', round_simple(F_value,2))
+  
+  
+  text_subtitle = 'Changing MSB'
+  text_title = 'Oneway ANOVA'
+  
+  plot_ =
+    ggplot() + 
+    geom_line(data = x1_distribution_data, aes(x = x1_seq, y = y1_seq)) + 
+    geom_line(data = x2_distribution_data, aes(x = x2_seq, y = y2_seq)) +
+    geom_line(data = x3_distribution_data, aes(x = x3_seq, y = y3_seq)) + 
+    labs(title = text_title, 
+         subtitle = TeX(text_subtitle),
+         y = 'Frequency',
+         x = 'X') + 
+    
+    theme_classic() + 
+    lims(y = c(0,0.5),
+         x = c(-10,10)) + 
+    annotate(geom = 'text',x = text_x_position, y = text_y_position, label = TeX(text_f_value[1]))
+  print(plot(plot_))
+    },
+  movie_name = Output_gif_name, 
+  clone_repository_path = clone_repository_path,
+  loop_speed = 0.01,
+  loop_number = 1)
+```
+
+# Moving MSE 
+```{r Moving `MSE` from negative to positive ,echo = F,comment = NA}
+# Set mean, sample size and standard deviation 
+n = 100
 
 se1 = 1
-se2 = 1
-se3 = 1
 
 x1_mean = 0
-x2_mean = 3
-
+x2_mean = 1
+x3_mean = -1
 
 # Set x_seq limit 
 x1_low_Lim = x1_mean - 3
 x1_upper_lim = x1_mean + 3
 x2_low_Lim = x2_mean - 3
 x2_upper_lim = x2_mean + 3
-
+x3_low_lim = x3_mean - 3
+x3_upper_lim = x3_mean + 3
 
 # Create x_seq 
 x1_seq = seq(x1_low_Lim,x1_upper_lim, by = 0.01)
 x2_seq = seq(x2_low_Lim,x2_upper_lim, by = 0.01)
-
+x3_seq = seq(x3_low_lim,x3_upper_lim,0.01)
 
 # Create y_seq 
 y1_seq = dnorm(x1_seq, mean = x1_mean,sd = se1)
-y2_seq = dnorm(x2_seq, mean = x2_mean,sd = se2)
+
 
 # Create distribution data 
-x1_distribution_data = as.data.frame(cbind(x1_seq, y1_seq))
-x2_distribution_data = as.data.frame(cbind(x2_seq, y2_seq))
+x1_distribution_data = as.data.frame(cbind(x1_seq, y1_seq)) %>% 
+  mutate(data_seq_1 = x1_seq*y1_seq)
 
 
 # Set graphing parameter
-text_x_position = -6.5
+text_x_position = -8
 text_y_position = 0.75
 
 #Output name
-Output_gif_name = 'Plot12_change_SSB_one_dist_neg_to_pos_80.gif'
+Output_gif_name = 'Plot12_changing_MSE.gif'
 
 # Start function 
-saveGIF_simple(for (x3_mean in seq(-8,0,length.out = 20)) {
-  
-  x3_low_lim = x3_mean - 3
-  x3_upper_lim = x3_mean + 3
+saveGIF_simple(for (se2_3 in seq(.5,1,length.out = 80)) {
   
   # Initialited data to construct the distribution 
   # Construct a standard normal distribution 
-  x3_seq = seq(x3_low_lim,x3_upper_lim,0.01)
-  y3_seq = dnorm(x = x3_seq,mean = x3_mean,sd = se3)
+  y2_seq = dnorm(x2_seq, mean = x2_mean,sd = se2_3)
+  y3_seq = dnorm(x = x3_seq,mean = x3_mean,sd = se2_3)
+  
+  x2_distribution_data = as.data.frame(cbind(x2_seq, y2_seq))
   x3_distribution_data = as.data.frame(cbind(x3_seq, y3_seq))
   
   
+  set.seed(3)
+  x1_data = data.frame(data = rnorm(n,mean = x1_mean,
+                                                 sd = se),name = 'x1')
+  set.seed(3)
+  x2_data = data.frame(data = rnorm(n,mean = x2_mean,
+                                                 sd = se2_3),name = 'x2')
+  set.seed(3)
+  x3_data = data.frame(data = rnorm(n,mean = x3_mean,
+                                                 sd = se2_3),name = 'x3')
+
+  in_loop_data = 
+    rbind(x1_data,x2_data,x3_data)
   # Caculated SSB & f score
-  in_loop_data = data.frame(name = rep(x = c('x1','x2','x3'), each = length(y1_seq)), data = c(x1_seq,x2_seq,x3_seq))
+  
   reg_result = in_loop_data %>% lm(data = ., formula = data ~ name)
   anova_result = anova(reg_result)
-  SS_treatment = anova_result$`Sum Sq`[1]
-  SS_error = anova_result$`Sum Sq`[2]
-  F_value =  anova_result$`F value`
-  df_treatment = anova_result$Df[1]
-  df_error = anova_result$Df[2]
+  #SS_treatment = anova_result$`Sum Sq`[1]
+  #SS_error = anova_result$`Sum Sq`[2]
+  MS_treatment = anova_result$`Mean Sq`[1]
+  MS_error = anova_result$`Mean Sq`[2]
+  F_value = anova_result$`F value`
   
-  text_f_value = paste(
-  '$F = \\frac{',round_simple(SS_treatment,2),'}{',round_simple(df_treatment,2),'}  /  \\frac{',round_simple(SS_error,2),'}{',round_simple(df_error,2),'}$ =', round_simple(F_value,2))
+  #F_value =  MS_treatment / se
   
-  text_subtitle = 'Changing SSB'
+  text_f_value = paste('$F = \\frac{',round_simple(MS_treatment,0),'}{',round_simple(MS_error,3),'}$ = ',round_simple(F_value,2))
+  
+  text_subtitle = 'Changing MSE'
   text_title = 'Oneway ANOVA'
   
   plot_ =
@@ -106,11 +221,6 @@ saveGIF_simple(for (x3_mean in seq(-8,0,length.out = 20)) {
     },
   movie_name = Output_gif_name, 
   clone_repository_path = clone_repository_path,
-  loop_speed = 0.001,
+  loop_speed = 0.01,
   loop_number = 1)
-```
-
-# Moving dfB 
-```{r moving dfB,echo = F,comment = NA}
-
 ```
