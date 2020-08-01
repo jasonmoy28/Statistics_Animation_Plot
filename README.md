@@ -35,6 +35,7 @@ IDEAS FOR ANIMATING BASIC STATISTICS:
 
 11. Show how Dependent Samples t is affected by M_D, SD_D, and n.
 
-12. Show how ONEWAY ANOVA is affected by (a) SSB, (b) dfB, (c) SSW, and (d) dfW. 
+12. **(COMPLETED)**Show how ONEWAY ANOVA is affected by (a) SSB, (b) dfB, (c) SSW, and (d) dfW. 
 
 13. Show how r is affected by the shape of a scatterplot. Show how r is affected by (a) outliers, (b) curvilinearity).
+
