@@ -56,10 +56,12 @@ saveGIF_simple(for (sd2 in seq(0.8,2,length.out = 80)) {
   x2_distribution_data = as.data.frame(cbind(x2_seq, y2_seq))
   
   # Construct data with the same parameters for the dist to mimic the Levene Test
+  set.seed(1)
   x1_data = data.frame(
-    data = rnorm(n = 50,mean = x1_mean, sd = sd1), name = 'x1')
+    data = rnorm(n = 200,mean = x1_mean, sd = sd1), name = 'x1')
+  set.seed(1)
   x2_data = data.frame(
-    data = rnorm(n = 50,mean = x2_mean, sd = sd2), name = 'x2')
+    data = rnorm(n = 200,mean = x2_mean, sd = sd2), name = 'x2')
   combined_df = rbind(x1_data,x2_data) %>% mutate(name = as.factor(name))
   
   results = car::leveneTest(y = combined_df$data,group = combined_df$name,center = 'mean')
