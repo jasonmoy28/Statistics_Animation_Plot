@@ -20,6 +20,7 @@ saveGIF_simple(for (moving_x in seq(-3.5,3.5,length.out = 80)) {
   y = dnorm(x,mean = 0,sd = 1)
   plot2_data_in_loop = as.data.frame(cbind(x, y))
   text = paste0('$\\Z =  \\frac{',round_simple(moving_x,2),' -  0}{1}$ = ', round_simple(moving_x,2))
+  moving_text = paste('X = ', round_simple(moving_x,2))
   plot_ = plot2_data_in_loop %>% 
     ggplot(data =.,aes(x = x,y = y)) + 
     geom_line() + 
@@ -28,6 +29,7 @@ saveGIF_simple(for (moving_x in seq(-3.5,3.5,length.out = 80)) {
          y = 'Frequency') + 
     theme_classic() + 
     annotate(geom = 'text',x = -2.5, y = 0.45, label = latex2exp::TeX(text)) + 
+    annotate(geom = 'text',x = moving_x, y = 0.42, label = moving_text)
     lims(y = c(0,0.5))
       
   print(plot(plot_))},
