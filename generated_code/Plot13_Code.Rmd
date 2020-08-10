@@ -1,0 +1,64 @@
+---
+title: "Plot13_Code"
+author: "Jason Moy"
+date: "8/4/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+#Must changed to the local clone repository path
+clone_repository_path = '/Users/Jasonmoy/Desktop/Hattrup_Lab/Statistics_Animation_Plot' #edit here
+source(paste(clone_repository_path,'/saveGIF_simple_git_ver.R',sep = '')) # run the saveGIF_simple function 
+```
+
+```{r Outlier plot}
+# Created a dataframe for non-outlier data 
+x = seq(0,10,0.5)
+constant = 5 
+beta1 = 2
+set.seed(1)
+error = rnorm(n = length(x), mean = 0, sd = 1)
+y = constant + beta1*x + error 
+no_outlier_df = as.data.frame(cbind(x,y))
+
+
+# Asethetics parameter
+title = 'Linear regression' 
+subtitle = 'Affected by outlier'
+
+output_movie_name = 'Plot13_outlier'
+saveGIF_simple(for (outlier_y_deviation in seq(0,70,length.out = 80)) {
+  
+
+  # Create outlier x & y coordinate
+  outlier_x = c(7.5,8,6.5,9,8.3)
+  results = no_outlier_df %>% lm(y ~ x,data = .)
+  outlier_predicted_y = predict.lm(object = results,
+                                   newdata = data.frame(x = outlier_x))
+  outlier_y = outlier_predicted_y + outlier_y_deviation
+  outlier_data = data.frame(x = outlier_x,y = outlier_y)
+  
+  combined_df = rbind(outlier_data,no_outlier_df)
+  
+  
+  
+  # Created the plot 
+  plot_ = ggplot(data = combined_df, mapping = aes(x = x,y = y)) + 
+    # Regression line and point 
+    geom_smooth(data = combined_df,method = 'lm',formula = 'y ~ x',se = F) + 
+    geom_point(color = 'black') + 
+    # outlier geom_point 
+    geom_point(data = outlier_data, color = 'red') + 
+    lims(y = c(0,100)) + 
+    labs(title = title, subtitle = subtitle) + 
+    theme_classic()
+  print(plot_)},
+  movie_name = output_movie_name,
+  clone_repository_path = clone_repository_path,
+  loop_speed = 0.01,
+  loop_number = 1)
+```
+
+
+
+```
