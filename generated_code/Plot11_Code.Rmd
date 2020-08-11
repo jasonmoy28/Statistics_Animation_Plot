@@ -98,6 +98,7 @@ saveGIF_simple(for (moving_x in seq(0,3,0.25)) {
   movie_name = Output_gif_name, 
   clone_repository_path = clone_repository_path,
   loop_speed = 0.4, loop_number = 1)
+
 ```
 
 ## Moving `X - mu` negative critical value 
