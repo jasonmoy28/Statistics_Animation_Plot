@@ -10,7 +10,6 @@ output: html_document
 ```{r setup, include=FALSE}
 #Must changed to the local clone repository path
 source('https://raw.githubusercontent.com/jasonmoy28/Statistics_Animation_Plot/master/saveGIF_simple_git_ver.R') # run the saveGIF_simple function 
-library(sgt)
 ```
 
 ```{r,echo = F,comment = NA}
