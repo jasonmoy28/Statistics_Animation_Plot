@@ -10,8 +10,7 @@ output: html_document
 
 ```{r setup, include=FALSE}
 #Must changed to the local clone repository path
-clone_repository_path = '/Users/Jasonmoy/Desktop/Hattrup_Lab/Statistics_Animation_Plot' #edit here
-source(paste(clone_repository_path,'/saveGIF_simple_git_ver.R',sep = '')) # run the saveGIF_simple function 
+source('https://raw.githubusercontent.com/jasonmoy28/Statistics_Animation_Plot/master/saveGIF_simple_git_ver.R') # run the saveGIF_simple function 
 ```
 
 ```{r p_value with moving X,echo = F,comment = NA}

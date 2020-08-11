@@ -9,8 +9,8 @@ output: html_document
 # Progress: Completed
 
 ```{r setup, include=FALSE}
-clone_repository_path = "C:/Users/Jason Moy/OneDrive - UC San Diego/Jason's PC Desktop/Statistics_Animation_Plot" #edit here
-source(paste(clone_repository_path,'/saveGIF_simple_git_ver.R',sep = '')) # run the saveGIF_simple function 
+#Must changed to the local clone repository path
+source('https://raw.githubusercontent.com/jasonmoy28/Statistics_Animation_Plot/master/saveGIF_simple_git_ver.R') # run the saveGIF_simple function 
 ```
 
 ```{r Positive skew plot,echo = F,comment = NA}
