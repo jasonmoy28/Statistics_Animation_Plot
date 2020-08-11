@@ -9,7 +9,7 @@ saveGIF_simple <- function(loop_object,clone_repository_path,movie_name, loop_nu
   # loop_number (default 1) specify number of loop you want to see for the gif 
   # loop_speed (default 0.1) is the number of frame per seconds
   save_path = paste('generated_graph/',movie_name,sep = '')
-  saveGIF({loop_object}, movie.name = save_path,... = ani.options(interval = loop_speed, loop = loop_number))
+  saveGIF({loop_object}, movie.name = file.path(save_path),... = ani.options(interval = loop_speed, loop = loop_number))
 }
 
 round_simple <- function(var, number_of_decimals) {
