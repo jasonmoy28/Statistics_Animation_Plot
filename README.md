@@ -27,15 +27,15 @@ IDEAS FOR ANIMATING BASIC STATISTICS:
 
 7. **(COMPLETED)** Show how changes in X-mu and sigma_x and N influence the location of a sample mean Z relative to the critical value of Z (i.e. 1.96 or 2.58). i.e. Can we flash lights when Zm exceeds 1.96 in absolute value (i.e. when Ho should be rejected)?
 
-8. **(COMPLETED)**Show how Single Sample t is affected by X-M, SDx, and n. i.e. Can we flash lights when t exceeds the critical value (reject Ho)?
+8. **(COMPLETED)** Show how Single Sample t is affected by X-M, SDx, and n. i.e. Can we flash lights when t exceeds the critical value (reject Ho)?
 
-9. **(COMPLETED)**Show how Independent Samples t is affected by M-M, SD_pooled, and n. Can we flash lights when t exceeds the critical value?
+9. **(COMPLETED)** Show how Independent Samples t is affected by M-M, SD_pooled, and n. Can we flash lights when t exceeds the critical value?
 
-10. **(COMPLETED)**Show how Levene’s Test is affected with SD_1 differs from SD_2.
+10. **(COMPLETED)** Show how Levene’s Test is affected with SD_1 differs from SD_2.
 
-11. **(COMPLETED)**Show how Dependent Samples t is affected by M_D, SD_D, and n.
+11. **(COMPLETED)** Show how Dependent Samples t is affected by M_D, SD_D, and n.
 
-12. **(COMPLETED)**Show how ONEWAY ANOVA is affected by (a) SSB, (b) dfB, (c) SSW, and (d) dfW. 
+12. **(COMPLETED)** Show how ONEWAY ANOVA is affected by (a) SSB, (b) dfB, (c) SSW, and (d) dfW. 
 
 13. Show how r is affected by the shape of a scatterplot. Show how r is affected by (a) outliers, (b) curvilinearity).
 
