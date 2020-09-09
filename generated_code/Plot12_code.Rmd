@@ -126,7 +126,6 @@ saveGIF_simple(for (x3_mean in seq(0,8,length.out = 80)) {
 # Set mean, sample size and standard deviation 
 n = 100
 
-se1 = 1
 
 x1_mean = 0
 x2_mean = 1
@@ -145,13 +144,7 @@ x1_seq = seq(x1_low_Lim,x1_upper_lim, by = 0.01)
 x2_seq = seq(x2_low_Lim,x2_upper_lim, by = 0.01)
 x3_seq = seq(x3_low_lim,x3_upper_lim,0.01)
 
-# Create y_seq 
-y1_seq = dnorm(x1_seq, mean = x1_mean,sd = se1)
-
-
 # Create distribution data 
-x1_distribution_data = as.data.frame(cbind(x1_seq, y1_seq)) %>% 
-  mutate(data_seq_1 = x1_seq*y1_seq)
 
 
 # Set graphing parameter
@@ -162,13 +155,15 @@ text_y_position = 0.75
 Output_gif_name = 'Plot12_changing_MSE.gif'
 
 # Start function 
-saveGIF_simple(for (se2_3 in seq(.5,1,length.out = 80)) {
+saveGIF_simple(for (se in seq(.5,1,length.out = 80)) {
   
   # Initialited data to construct the distribution 
   # Construct a standard normal distribution 
-  y2_seq = dnorm(x2_seq, mean = x2_mean,sd = se2_3)
-  y3_seq = dnorm(x = x3_seq,mean = x3_mean,sd = se2_3)
+  y1_seq = dnorm(x1_seq, mean = x1_mean,sd = se)
+  y2_seq = dnorm(x2_seq, mean = x2_mean,sd = se)
+  y3_seq = dnorm(x = x3_seq,mean = x3_mean,sd = se)
   
+  x1_distribution_data = as.data.frame(cbind(x1_seq, y1_seq))
   x2_distribution_data = as.data.frame(cbind(x2_seq, y2_seq))
   x3_distribution_data = as.data.frame(cbind(x3_seq, y3_seq))
   
@@ -178,10 +173,10 @@ saveGIF_simple(for (se2_3 in seq(.5,1,length.out = 80)) {
                                                  sd = se),name = 'x1')
   set.seed(3)
   x2_data = data.frame(data = rnorm(n,mean = x2_mean,
-                                                 sd = se2_3),name = 'x2')
+                                                 sd = se),name = 'x2')
   set.seed(3)
   x3_data = data.frame(data = rnorm(n,mean = x3_mean,
-                                                 sd = se2_3),name = 'x3')
+                                                 sd = se),name = 'x3')
 
   in_loop_data = 
     rbind(x1_data,x2_data,x3_data)
