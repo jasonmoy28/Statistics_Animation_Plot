@@ -1,16 +1,3 @@
----
-title: "Plot2_code"
-author: "Jason Moy"
-date: "6/8/2020"
-output: html_document
----
-
-library(extrafont)
-install.packages("xkcd")
-help(package="xkcd")
-library(xkcd)
-library(extrafont)
-
 
 
 ```{r setup, include=FALSE}
@@ -18,12 +5,18 @@ library(extrafont)
 clone_repository_path = 'C:/Users/Kate/Documents/GitHub/Statistics_Animation_Plot' #edit here
 source(paste(clone_repository_path,'/saveGIF_simple_git_ver.R',sep = '')) # run the saveGIF_simple function 
 ```
+loadfonts(device = "win")
+install.packages("extrafont")
+install.packages("xkcd")
+library(xkcd)
+library(extrafont)
+
 
 ```{r,echo = F,comment = NA}
 x = seq(-5,5,0.15)
 saveGIF_simple(
   loop_object = 
-    for (sd in seq(1,3.5,.05)) {
+    for (sd in seq(1,3.5,length.out = 80)) {
       y = dnorm(x,mean = 0,sd = sd)
       plot2_data_in_loop = as.data.frame(cbind(x, y,sd))
       text1 = paste0('$S^2  =  \\frac{',round_simple(sd^2*66,3),'}{66}$ = ', round_simple(sd^2,3))
@@ -37,10 +30,11 @@ saveGIF_simple(
              y = 'Proportion of Scores') + 
         theme_xkcd() + 
         lims(y = c(0,0.5)) + 
-    annotate(geom = 'text',x = 2, y = 0.45, color = "blue", size = 5, label = text1_converted) + 
-    annotate(geom = 'text',x = -3, y = 0.45, color = "blue", size = 5, label = text2_converted)
-  print(plot(plot_))}, 
-  movie_name = 'Plot2xkcdJuly26.gif', 
+        annotate(geom = 'text',x = 2.5, y = 0.45, family = "xkcd", color = "purple4", size = 6, label = text1_converted) + 
+        annotate(geom = 'text',x = -2.5, y = 0.45, family = "xkcd", color = "purple4", size = 6, label = text2_converted) +
+        theme(axis.line = element_line(size = 1))
+      print(plot(plot_))}, 
+  movie_name = 'Plot2xkcd_82920_v1b_increase.gif', 
   clone_repository_path = clone_repository_path,
-  loop_speed = 0.4, loop_number = 1)
+  loop_speed = 0.01, loop_number = 1)
 ```

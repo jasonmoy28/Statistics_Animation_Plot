@@ -1,0 +1,85 @@
+---
+title: "Plot3_code"
+author: "Jason Moy"
+date: "6/8/2020"
+output: html_document
+---
+# Prompt: Show how a Z-score is affected by (a) X – M (positive and negative and magnitude), and (b) SD (more or less).
+
+# Prorgess: Completed
+```{r setup, include=FALSE}
+#Must changed to the local clone repository path
+source('https://raw.githubusercontent.com/jasonmoy28/Statistics_Animation_Plot/master/saveGIF_simple_git_ver.R') # run the saveGIF_simple function 
+```
+loadfonts(device = "win")
+install.packages("extrafont")
+install.packages("xkcd")
+library(xkcd)
+library(extrafont)
+
+.rs.restartR()
+rm(list = ls())
+
+
+```{r Z score with moving X,echo = F,comment = NA}
+x = seq(60,140,0.1)
+low_lim  = 60
+upper_lim = 140
+text_X_position = 115
+sd = 15
+mean = 100
+saveGIF_simple(for (moving_x in seq(65,130,length.out = 80)) {
+  y = dnorm(x,mean = mean,sd = sd)
+  plot2_data_in_loop = as.data.frame(cbind(x, y))
+  z_value = (moving_x - mean)/sd
+  text = paste0('$\\Z =  \\frac{',round_simple(moving_x,2),' -', mean,'}{',sd,'}$ = ', round_simple(z_value,2))
+  moving_text = paste('X = ', round_simple(moving_x,2))
+  plot_ = plot2_data_in_loop %>% 
+    ggplot(data =.,aes(x = x,y = y)) + 
+    geom_line(color = 'blue', size = 2) + 
+    geom_line(data = data.frame(x = c(moving_x,moving_x), y = c(0,0.03)),color = 'red', size = 2) + 
+    labs(title = 'Relationship between Z score\nand the location of X',
+         y = 'Frequency') + 
+    theme_xkcd() + 
+    annotate(geom = 'text',x = text_X_position, y = 0.038, color = 'purple4', size = 6, label = latex2exp::TeX(text)) + 
+    annotate(geom = 'text',x = moving_x, y = 0.032, size = 6, label = moving_text) + 
+    lims(y = c(0,0.04), 
+         x = c(low_lim,upper_lim)) +
+    theme(axis.line = element_line(size = 1))
+      
+  print(plot(plot_))},
+  movie_name = 'Plot3_moving_X_with_z_score_XKCD82220_V1_NEGZb.gif', 
+  clone_repository_path = clone_repository_path,
+  loop_speed = 0.01, loop_number = 1)
+```
+
+
+```{r Z score with changing sd,echo = F,comment = NA}
+fix_X = 85
+x = seq(35,115,0.1)
+low_lim = 35
+upper_lim = 115
+text_X_position = 57
+mean = 75
+saveGIF_simple(loop_object = for (sd in seq(5,20,length.out = 80)) {
+  y = dnorm(x,mean = mean,sd = sd)
+  plot2_data_in_loop = as.data.frame(cbind(x, y))
+  z_value = (fix_X - mean)/sd
+  text = paste0('$\\Z =  \\frac{',fix_X,' -',mean,'}{',sd,'}$ = ', round_simple(z_value,2))
+  plot_ = plot2_data_in_loop %>% 
+    ggplot(data =.,aes(x = x,y = y)) + 
+    geom_line(color = 'blue', size = 2) +
+    geom_line(data = data.frame(x = c(fix_X,fix_X), y = c(0,0.10)),color = 'red', size = 2) + 
+    labs(title = 'Relationship between Z score\nand the variability of X',
+         y = 'Proportion of Scores') + 
+    theme_xkcd() + 
+    annotate(geom = 'text',x = text_X_position, y = 0.09, color = 'purple4', size = 5.2, label = latex2exp::TeX(text)) + 
+    lims(y = c(0,0.10),
+        x = c(low_lim, upper_lim)) +
+    theme(axis.line = element_line(size = 1))
+      
+  print(plot(plot_))},
+  movie_name = 'Plot3_ZwithincreasingSD_XKCD91120_V1.gif', 
+  clone_repository_path = clone_repository_path,
+  loop_speed = 0.01, loop_number = 1)
+```

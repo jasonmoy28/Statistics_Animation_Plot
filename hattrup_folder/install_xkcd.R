@@ -1,5 +1,20 @@
 #These are instructions to download and install xkcd fonts
 #Make sure you download xkcd fonts to your device first
+
+download.file("http://simonsoftware.se/other/xkcd.ttf", dest="xkcd.ttf", mode="wb")
+system("mkdir ~/.fonts")
+system("cp xkcd.ttf ~/.fonts")
+
+fonts()
+fonttable()
+if(.Platform$OS.type != "unix") {  ## Register fonts for Windows bitmap output
+  loadfonts(device="win")
+} else {
+  loadfonts()
+}
+fonts()
+
+
 font_import(paths = getwd(), pattern = "[X/x]kcd", prompt=FALSE)
 
 loadfonts(device = "win")
