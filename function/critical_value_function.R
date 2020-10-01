@@ -20,8 +20,5 @@ critical_value <- function(critical_value_prob, mu, se, upper_lim, lower_lim) {
   return(critical_value_data)
 }
 
-critical_value_data = critical_value(critical_value_prob = 0.05, mu = mu,se = standard_error,upper_lim = x_upper_lim,lower_lim = x_low_lim)
-
-
 
 
