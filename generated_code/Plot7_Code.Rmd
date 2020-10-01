@@ -12,7 +12,7 @@ output: html_document
 ```{r setup, include=FALSE}
 #Must changed to the local clone repository path
 source('https://raw.githubusercontent.com/jasonmoy28/Statistics_Animation_Plot/master/saveGIF_simple_git_ver.R') # load the saveGIF_simple function 
-source('https://raw.githubusercontent.com/jasonmoy28/Statistics_Animation_Plot/master/function/critical_value_function.R') # load the critical value function
+#source('https://raw.githubusercontent.com/jasonmoy28/Statistics_Animation_Plot/master/function/critical_value_function.R') # load the critical value function
 ```
 
 # Moving `X - mu` 
