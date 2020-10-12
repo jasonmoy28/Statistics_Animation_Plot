@@ -12,6 +12,8 @@ saveGIF_simple <- function(loop_object,clone_repository_path,movie_name, loop_nu
   word_dir_modified = str_remove(pattern = '/generated_code', string = work_dir)
   save_path = paste(word_dir_modified,'/generated_graph/',movie_name,sep = '')
   saveGIF({loop_object}, movie.name = file.path(save_path),... = ani.options(interval = loop_speed, loop = loop_number))
+  dev.off()
+  graphics.off()
   }
 
 round_simple <- function(var, number_of_decimals) {
