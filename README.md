@@ -3,12 +3,12 @@
 
 **Must install packages from `Required_packages.R`**  
 
-**Must run `saveGIF_simple.R` to generate plot** 
+**Must load `saveGIF_simple.R` to generate plot. The function should be automatically loaded in R Markdown file** 
 
 Direction to access this repository: 
 1. Code to generate the graphs are stored in folder `generated_code`
 2. Graph that are generated are stored in folder `generated_graph`
-3. For more functionality that supported in `animation::saveGIF`, edit the `saveGIF_simple` function
+3. For more functionality that supported in `animation::saveGIF`, edit the `saveGIF_simple` function. If you wish to export as HTML format, please use the `animation::saveHTML` function 
 
 
 IDEAS FOR ANIMATING BASIC STATISTICS:
@@ -37,5 +37,5 @@ IDEAS FOR ANIMATING BASIC STATISTICS:
 
 12. **(COMPLETED)** Show how ONEWAY ANOVA is affected by (a) SSB, (b) dfB, (c) SSW, and (d) dfW. 
 
-13. Show how r is affected by the shape of a scatterplot. Show how r is affected by (a) outliers, (b) curvilinearity).
+13. **(COMPLETED)** Show how r is affected by the shape of a scatterplot. Show how r is affected by (a) outliers, (b) curvilinearity).
 
